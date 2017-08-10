@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">USSD4ETECSA</string>
+    <string name="accessibility_service_description">Habilitar <b>USSD4ETECSA</b> para poder obtener la infomación de los dialogos de saldo y asi poder mantener la Base de datos de la aplicación actulizada.Cuando habilites esta opción podras obtener la vizualización de tus saldos en la barra de notificación y siempre saber la informacion de tu saldo, asi como los servicios contratados.
+    </string>
+    <string name="ayuda_app"> Activar el servicio de accesibilidad en - [AJUSTES> ACCESIBILIDAD> USSD4ETECSA] -  el cual permite que se puedan mostrar los saldos en la aplicación.</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">Contratar</string>
+    <string name="update">Actualizar</string>
+    <string name="config">Configuración</string>
+    <string name="descripcion_notificacion">Activar acceso directo de los saldos en la barra notificación. </string>
+    <string name="descripcion_accesibilidad">Presione para habilitar el servicio de accesibilidad, el cual permite que se puedan mostrar los saldos en la aplicación. </string>
+    <string name="title_activity_navigation">Navigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configurar Widget de la aplicación</string>
+    <string name="add_widget">Add widget</string>
+    <string name="config_Automata_title">Activar verificación automática</string>
+    <string name="config_Automata_text">Permite verificar automáticamente los saldos 5 segundos después de realizar una llamada o enviar un sms. </string>
+    <string name="config_chbox_call">Actualizar después de realizar una llamada. </string>
+    <string name="config_chbox_sms">Actualizar después de enviar un sms. </string>
+
+    <string name="card_text">Usted dispone de: </string>
+
+</resources>
