@@ -629,7 +629,7 @@
                         android:layout_toEndOf="@+id/iv_bono"
                         android:layout_toRightOf="@+id/iv_bono"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="$0.000"
+                        android:text="$0.00"
                         android:textSize="20sp" />
 
                     <TextView
