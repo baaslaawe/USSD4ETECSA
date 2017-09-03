@@ -75,7 +75,7 @@ public class Reciver extends BroadcastReceiver {
     private void accionDemorada(Context context, String accion) throws SQLException {
         String ussdCod = "222";
         Log.i("call", ussdModel.getValor("VOZ", context));
-        if (!getValorSaldos("VOZ", context).equals("0:00:00")) {
+        if (!getValorSaldos("VOZ", context).equals("0:00:00") || !getValorSaldos("VOZ", context).equals("0")) {
             ussdCod = "222*869";
 
         }
