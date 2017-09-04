@@ -12,6 +12,7 @@ import android.util.Log;
 import java.sql.SQLException;
 
 import dev.mad.ussd4etecsa.Model.DatUssdModel;
+import dev.mad.ussd4etecsa.Notification.NotificationHelper;
 
 /**
  * Created by Daymel on 11/7/2017.
@@ -72,16 +73,26 @@ public class Reciver extends BroadcastReceiver {
      * @param context
      * @param accion
      */
-    private void accionDemorada(Context context, String accion) throws SQLException {
+    private void accionDemorada(final Context context, String accion) throws SQLException {
         String ussdCod = "222";
         Log.i("call", ussdModel.getValor("VOZ", context));
-        if (!getValorSaldos("VOZ", context).equals("0:00:00") || !getValorSaldos("VOZ", context).equals("0")) {
+        if (!getValorSaldos("VOZ", context).equals("0:00:00") && !getValorSaldos("VOZ", context).equals("0")) {
             ussdCod = "222*869";
-
         }
-
-
         marcarNumero(ussdCod, context);
+        final NotificationHelper notificationHelper = new NotificationHelper(context);
+        new CountDownTimer(10000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                notificationHelper.sendUpdateNotificacion();
+            }
+
+        }.start();
+
     }
 
     /**

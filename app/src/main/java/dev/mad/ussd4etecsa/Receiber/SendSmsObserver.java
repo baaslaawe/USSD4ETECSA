@@ -15,6 +15,7 @@ import android.os.Handler;
 import java.sql.SQLException;
 
 import dev.mad.ussd4etecsa.Model.DatUssdModel;
+import dev.mad.ussd4etecsa.Notification.NotificationHelper;
 
 /**
  * Created by Daymel on 02/08/2017.
@@ -103,6 +104,18 @@ public class SendSmsObserver extends ContentObserver {
             ussdCod = "222*767";
         }
         marcarNumero(ussdCod, context);
+        final NotificationHelper notificationHelper = new NotificationHelper(context);
+        new CountDownTimer(10000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                notificationHelper.sendUpdateNotificacion();
+            }
+
+        }.start();
     }
 
     /**

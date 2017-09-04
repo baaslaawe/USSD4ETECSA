@@ -56,24 +56,13 @@ import java.util.List;
 
 import dev.mad.ussd4etecsa.Model.AuxConfigModel;
 import dev.mad.ussd4etecsa.Model.DatUssd;
+import dev.mad.ussd4etecsa.Notification.NotificationHelper;
 import dev.mad.ussd4etecsa.Services.Accesibilidad;
 import dev.mad.ussd4etecsa.Services.GeneralService;
 import dev.mad.ussd4etecsa.Services.UssdService;
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
 
 public class Principal extends AppCompatActivity {
-
-
-    // Constante con ID de la notificacion
-    private static final int NOTIFICATION_ID = 1;
-
-    //    Variables de la sendNotifacation
-    NotificationManager adminNotifications;
-
-    static String servNotifications = Context.NOTIFICATION_SERVICE;
-
-    //Defino los iconos de la sendNotifacation en la barra de sendNotifacation
-    int iconNotificactionApp = R.drawable.ic_notification;
 
 
     ImageButton refresh;
@@ -98,10 +87,9 @@ public class Principal extends AppCompatActivity {
     TextView tv_activo_Voz;
     TextView tv_activo_Sms;
     CardView cv_bono;
-
+    NotificationHelper notificationHelper;
     DatabaseHelper dbHelper;
     Intent intentMemoryService;
-    AuxConfigModel modelConfig = new AuxConfigModel();
 
 
     private static final String[] ARRAY_VOZ = {"5 Minutos / $1.50", "10 Minutos / $2.90", "15 Minutos / $4.20", "25 Minutos / $6.50", "40 Minutos / $10.00"};
@@ -116,8 +104,7 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        adminNotifications = (NotificationManager) getSystemService(servNotifications);
-
+notificationHelper = new NotificationHelper(getApplicationContext());
         cv_bono = (CardView) findViewById(R.id.cv_bono);
         refresh = (ImageButton) findViewById(R.id.btn_refresh);
         saldo = (TextView) findViewById(R.id.tv_valor_saldo);
@@ -216,23 +203,7 @@ public class Principal extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         stopService(intentMemoryService);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (verificarNotifications()) {
-                resetNotication();
-            }
-        } else {
-            try {
-                if (modelConfig.existeConfig("NOTIFICATION", getApplicationContext())) {
-                    if (modelConfig.getValorConfig("NOTIFICATION").equals("1")) {
-                        resetNotication();
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
+        notificationHelper.sendUpdateNotificacion();
     }
 
     /**
@@ -243,21 +214,7 @@ public class Principal extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         startService(intentMemoryService);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (verificarNotifications()) {
-                resetNotication();
-            }
-        } else {
-            try {
-                if (modelConfig.existeConfig("NOTIFICATION", getApplicationContext())) {
-                    if (modelConfig.getValorConfig("NOTIFICATION").equals("1")) {
-                        resetNotication();
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        notificationHelper.sendUpdateNotificacion();
 
 
     }
@@ -315,98 +272,6 @@ public class Principal extends AppCompatActivity {
         }
 
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public boolean verificarNotifications() {
-        final StatusBarNotification[] activeNotifications = adminNotifications.getActiveNotifications();
-        boolean flag = false;
-        for (StatusBarNotification notification : activeNotifications) {
-            if (notification.getId() == NOTIFICATION_ID) {
-                flag = true;
-            } else {
-                flag = false;
-            }
-        }
-        return flag;
-    }
-
-    /**
-     * Resetear Notificaciones
-     */
-    public void resetNotication() {
-        adminNotifications.cancel(NOTIFICATION_ID);
-        sendNotifacation();
-    }
-
-    /**
-     * Crear notificaciones en la barra de estado con el saldo
-     */
-    public void sendNotifacation() {
-        // Capturo la hora del evento
-        long hora = System.currentTimeMillis();
-        // Conexion a la BD
-        dbHelper = OpenHelperManager.getHelper(getApplicationContext(), DatabaseHelper.class);
-        RuntimeExceptionDao<DatUssd, Integer> ussdDao = dbHelper.getUssdRuntimeDao();
-        List<DatUssd> ussdObjetctSaldo = ussdDao.queryForEq("name", "SALDO");
-        List<DatUssd> ussdObjetctVoz = ussdDao.queryForEq("name", "VOZ");
-        List<DatUssd> ussdObjetctSms = ussdDao.queryForEq("name", "SMS");
-        List<DatUssd> ussdObjetctBolsa = ussdDao.queryForEq("name", "BOLSA");
-
-        String saldos = "Saldo principal: " + ussdObjetctSaldo.get(0).getValor();
-        // Definimos la accion de la pulsacion sobre la sendNotifacation (esto es opcional)
-        Context context = getApplicationContext();
-        NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context);
-
-        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-
-        Intent notificationIntent = null;
-        if (this.getIntent() != null) {
-            notificationIntent = this.getIntent();
-        } else {
-            notificationIntent = new Intent(this, Principal.class);
-
-        }
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-
-        nBuilder.setContentIntent(contentIntent)
-                .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-                .setSmallIcon(iconNotificactionApp).setWhen(hora)
-                .setContentTitle("Saldo Disponible")
-                .setContentText(saldos);
-
-        if (tv_activo_Voz.getText().equals("Servicio activo.") || tv_activo_Sms.getText().equals("Servicio activo.") || tv_activo_Datos.getText().equals("Servicio activo.")) {
-            String[] events = new String[5];
-
-            events[0] = new String(saldos);
-            events[1] = new String("SERVICIOS ACTIVOS:");
-            if (tv_activo_Voz.getText().equals("Servicio activo.")) {
-                events[2] = new String("Voz: " + ussdObjetctVoz.get(0).getValor() + " Min por " + ussdObjetctVoz.get(0).getFechavencimiento() + " días");
-            }
-            if (tv_activo_Sms.getText().equals("Servicio activo.")) {
-                events[3] = new String("SMS: " + ussdObjetctSms.get(0).getValor() + " SMS por " + ussdObjetctSms.get(0).getFechavencimiento() + " días");
-            }
-            if (tv_activo_Datos.getText().equals("Servicio activo.")) {
-                events[4] = new String("Datos: " + ussdObjetctBolsa.get(0).getValor() + " por " + ussdObjetctBolsa.get(0).getFechavencimiento() + " días");
-            }
-
-
-            inboxStyle.setBigContentTitle("Saldos Disponibles:");
-
-            // Moves events into the big view
-            for (int i = 0; i < events.length; i++) {
-                inboxStyle.addLine(events[i]);
-            }
-
-            nBuilder.setStyle(inboxStyle);
-        }
-
-
-        Notification notification = nBuilder.build();
-        notification.flags |= Notification.FLAG_ONGOING_EVENT;
-        adminNotifications.notify(NOTIFICATION_ID, notification);
-
-    }
-
 
     /**
      * Mostrar mensajes al usuarios
@@ -660,7 +525,7 @@ public class Principal extends AppCompatActivity {
 
             if (ussdObjetctBono.get(0).getValor().equals("0.00")) {
                 cv_bono.setVisibility(View.INVISIBLE);
-            }else {
+            } else {
                 cv_bono.setVisibility(View.VISIBLE);
             }
             List<DatUssd> ussdObjetctVoz = ussdDao.queryForEq("name", "VOZ");
