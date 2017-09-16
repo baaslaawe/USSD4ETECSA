@@ -64,8 +64,11 @@ public class Reciver extends BroadcastReceiver {
      */
     private void marcarNumero(String codigo, Context context) {
 
+
         String ussdCodigo = "*" + codigo + Uri.encode("#");
-        context.startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + ussdCodigo)));
+        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + ussdCodigo));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
 

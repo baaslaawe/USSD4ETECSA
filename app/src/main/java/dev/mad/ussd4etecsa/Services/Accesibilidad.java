@@ -157,7 +157,8 @@ public class Accesibilidad extends AccessibilityService {
     private String processUSSDText(List<CharSequence> eventText) {
 
         String s;
-        if (Build.VERSION.SDK_INT < 18) {
+        Log.i("version SDK", String.valueOf(Build.VERSION.SDK_INT));
+        if (Build.VERSION.SDK_INT == 18) {
             s = (String) eventText.get(1);
         } else {
             s = (String) eventText.get(0);
