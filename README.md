@@ -1,6 +1,5 @@
 # USSD4ETECSA
-Proyecto para la captura de respuesta de códigos USSD, captura de SMS y Llamadas. (AccessibilityService, Service, ContentObserver, BroadcastReceiver
-, OrmLiteSqliteOpenHelper).
+Proyecto para la captura de respuesta de códigos USSD, captura de SMS y Llamadas. (AccessibilityService, Service, ContentObserver, BroadcastReceiver, OrmLiteSqliteOpenHelper).
 
 ## Getting Started
 
@@ -8,8 +7,8 @@ Proyecto para la captura de respuesta de códigos USSD, captura de SMS y Llamada
 
 * Importar proyecto.
 
-## Version
-```1.2.2```
+## Version de la aplicación
+```1.3.0```
 
 ## Authors
 
