@@ -9,8 +9,8 @@ Proyecto para la captura de respuesta de códigos USSD, captura de SMS y Llamada
 
 * Importar proyecto.
 
-## Versión de la aplicación
-```1.3.0```
+## Versión
+```1.0```
 
 ## Autor
 
