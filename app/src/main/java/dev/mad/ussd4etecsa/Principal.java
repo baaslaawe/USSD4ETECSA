@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -37,10 +38,12 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 
 
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -104,7 +107,7 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-notificationHelper = new NotificationHelper(getApplicationContext());
+        notificationHelper = new NotificationHelper(getApplicationContext());
         cv_bono = (CardView) findViewById(R.id.cv_bono);
         refresh = (ImageButton) findViewById(R.id.btn_refresh);
         saldo = (TextView) findViewById(R.id.tv_valor_saldo);
@@ -255,7 +258,10 @@ notificationHelper = new NotificationHelper(getApplicationContext());
 
                 return true;
             }
-
+            case R.id.action_recargar: {
+                showDialogRecargar(Principal.this);
+                return true;
+            }
             case R.id.action_config: {
 
                 Intent intent = new Intent(getApplicationContext(), ConfigActivity.class);
@@ -270,6 +276,41 @@ notificationHelper = new NotificationHelper(getApplicationContext());
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+    }
+
+    /**
+     * Dialogo con la dir de la aplicación a conectarse.
+     *
+     * @param context
+     */
+    public void showDialogRecargar(Context context) {
+        final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(context);
+        final EditText alertText = new EditText(context);
+
+        alertText.setHint(R.string.alert_dialog_hint);
+
+        alert.setMessage(R.string.alert_dialog_mensaje);
+        alert.setTitle(R.string.alert_dialog_title);
+        alert.setView(alertText);
+
+        alert.setPositiveButton(R.string.alert_Ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                Editable YouEditTextValue = alertText.getText();
+                marcarNumero("662*" + String.valueOf(YouEditTextValue));
+
+
+            }
+        });
+
+        alert.setNegativeButton(R.string.alert_Cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+
+        alert.show();
 
     }
 

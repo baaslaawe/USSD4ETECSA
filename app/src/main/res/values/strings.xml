@@ -10,6 +10,9 @@
     <string name="ok">Contratar</string>
     <string name="update">Actualizar</string>
     <string name="config">Configuración</string>
+    <string name="recargar">Recargar saldo</string>
+    <string name="transferir">Transferir saldo</string>
+
     <string name="descripcion_notificacion">Activar acceso directo de los saldos en la barra notificación. </string>
     <string name="descripcion_accesibilidad">Presione para habilitar el servicio de accesibilidad, el cual permite que se puedan mostrar los saldos en la aplicación. </string>
     <string name="title_activity_navigation">Navigation</string>
@@ -27,5 +30,10 @@
     <string name="config_chbox_sms">Actualizar después de enviar un sms. </string>
 
     <string name="card_text">Usted dispone de: </string>
+    <string name="alert_dialog_hint">############</string>
+    <string name="alert_dialog_title">Recargar saldo</string>
+    <string name="alert_dialog_mensaje">Introducir código de recarga.</string>
+    <string name="alert_Cancel">Cancelar</string>
+    <string name="alert_Ok">Recargar</string>
 
 </resources>
