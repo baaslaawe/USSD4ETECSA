@@ -25,6 +25,7 @@ import java.util.StringTokenizer;
 
 import dev.mad.ussd4etecsa.Model.DatUssd;
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
+import dev.mad.ussd4etecsa.R;
 
 /**
  * Created by Daymel on 25-Apr-17.
@@ -40,9 +41,9 @@ public class Accesibilidad extends AccessibilityService {
         Log.d(TAG, "Estoy en Accesibilidad");
 
 
-
         AccessibilityNodeInfo source = event.getSource();
-        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED && event.getClassName().equals("android.app.AlertDialog")) { // android.app.AlertDialog is the standard but not for all phones
+        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED && event.getClassName().equals("android.app.AlertDialog")) {
+            // android.app.AlertDialog is the standard but not for all phones
 
             if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED && !String.valueOf(event.getClassName()).contains("AlertDialog")) {
                 return;
@@ -67,7 +68,9 @@ public class Accesibilidad extends AccessibilityService {
             if (TextUtils.isEmpty(text)) return;
 
             // Close dialog
-            performGlobalAction(GLOBAL_ACTION_BACK); // This works on 4.1+ only
+            if(!text.equals(getString(R.string.alert_dialog_title))){
+                performGlobalAction(GLOBAL_ACTION_BACK); // This works on 4.1+ only
+            }
 
             Log.d(TAG, text);
 
@@ -117,14 +120,17 @@ public class Accesibilidad extends AccessibilityService {
             }
             if (valores.get(4).equals("oferta.")) {
                 updateSaldo("0.00", "0", "BOLSA");
-
             }
-        } if(valores.size()>9){
+        }
+        if (valores.size() > 9) {
             if (valores.get(9).equals("Bono:")) {
                 updateSaldo(valores.get(10), valores.get(12), "BONO");
             }
         }
+        if(!respuesta.equals(getString(R.string.alert_dialog_title))){
             mostrarToast(respuesta);
+        }
+
 
 
     }

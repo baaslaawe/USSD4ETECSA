@@ -268,11 +268,6 @@ public class Principal extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-
-//            case R.id.action_favorite:
-//                showSnackBar("Añadir a favoritos");
-//                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -289,7 +284,6 @@ public class Principal extends AppCompatActivity {
         final EditText alertText = new EditText(context);
 
         alertText.setHint(R.string.alert_dialog_hint);
-
         alert.setMessage(R.string.alert_dialog_mensaje);
         alert.setTitle(R.string.alert_dialog_title);
         alert.setView(alertText);
@@ -299,8 +293,6 @@ public class Principal extends AppCompatActivity {
 
                 Editable YouEditTextValue = alertText.getText();
                 marcarNumero("662*" + String.valueOf(YouEditTextValue));
-
-
             }
         });
 

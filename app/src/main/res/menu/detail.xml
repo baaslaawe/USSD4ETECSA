@@ -10,13 +10,13 @@
     <item
         android:id="@+id/action_config"
         android:icon="@drawable/ic_settings"
-        android:orderInCategory="1"
+        android:orderInCategory="3"
         android:title="@string/config"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_recargar"
         android:icon="@drawable/ic_recargar"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         android:title="@string/recargar"
         app:showAsAction="ifRoom" />
   <!--  <item
