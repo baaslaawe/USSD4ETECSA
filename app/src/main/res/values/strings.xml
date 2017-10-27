@@ -29,8 +29,6 @@
     <string name="config_chbox_call">Actualizar después de realizar una llamada. </string>
     <string name="config_chbox_sms">Actualizar después de enviar un sms. </string>
 
-    <string name="card_text">Usted dispone de: </string>
-
     <string name="alert_dialog_hint">############</string>
     <string name="alert_dialog_title">Recargar saldo</string>
     <string name="alert_dialog_mensaje">Introducir código de recarga.</string>
@@ -45,6 +43,24 @@
     <string name="about_us_descrip">Agradecer a todas las personas que de una forma u otra han contribuido con el desarrollo de esta aplicación.</string>
     <string name="about_us_allright">Todos los derechos reservados</string>
     <string name="about_us_copy">Copyright © 2017 TBmos.</string>
+
+    <string name="Principal_red">Datos de la red</string>
+    <string name="Principal_proveedor">Proveedor de la Red:</string>
+    <string name="Principal_nombre">Nombre de la Red:</string>
+    <string name="Principal_tipo">Tipo de Red:</string>
+    <string name="Principal_seleccionar">Debe seleccionar una opción.</string>
+    <string name="Principal_sms">Contratar servicio de Mensajes</string>
+    <string name="Principal_datos">Contratar servicio de Datos</string>
+    <string name="Principal_voz">Contratar servicio de Voz</string>
+    <string name="no_conection">sin conexión</string>
+    <string name="cubacel">Cubacel</string>
+
+    <string name="Saldo">Su saldo actual es de:</string>
+    <string name="Saldo_vence">Vence el:</string>
+
+    <string name="servicio_dispone">Usted dispone de:</string>
+    <string name="servicio_vence">Por:</string>
+    <string name="no_service">Sin servicio</string>
 
 
 

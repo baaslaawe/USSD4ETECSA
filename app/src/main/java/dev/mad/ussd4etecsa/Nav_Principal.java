@@ -304,7 +304,7 @@ public class Nav_Principal extends AppCompatActivity
         switch (v.getId()) {
             case R.id.iv_config_voz: {
 
-                winDialog.setTitle("Contratar servicio de Voz").setSingleChoiceItems(ARRAY_VOZ, -1, new DialogInterface.OnClickListener() {
+                winDialog.setTitle(getString(R.string.Principal_voz)).setSingleChoiceItems(ARRAY_VOZ, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -335,7 +335,7 @@ public class Nav_Principal extends AppCompatActivity
                 winDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (valor[0].equals("0")) {
-                            mostrarMensaje("Debe seleccionar una opción.");
+                            mostrarMensaje(getString(R.string.Principal_seleccionar));
                         } else {
                             marcarNumero(valor[0]);
                             dialog.dismiss();
@@ -355,7 +355,7 @@ public class Nav_Principal extends AppCompatActivity
 
             case R.id.iv_config_sms: {
 
-                winDialog.setTitle("Contratar servicio de Mensajes").setSingleChoiceItems(ARRAY_SMS, -1, new DialogInterface.OnClickListener() {
+                winDialog.setTitle(getString(R.string.Principal_sms)).setSingleChoiceItems(ARRAY_SMS, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -383,7 +383,7 @@ public class Nav_Principal extends AppCompatActivity
                 winDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (valor[0].equals("0")) {
-                            mostrarMensaje("Debe seleccionar una opción.");
+                            mostrarMensaje(getString(R.string.Principal_seleccionar));
 
                         } else {
                             marcarNumero(valor[0]);
@@ -403,7 +403,7 @@ public class Nav_Principal extends AppCompatActivity
 
             case R.id.iv_config_datos: {
 
-                winDialog.setTitle("Contratar servicio de Mensajes").setSingleChoiceItems(ARRAY_DATOS, -1, new DialogInterface.OnClickListener() {
+                winDialog.setTitle(getString(R.string.Principal_datos)).setSingleChoiceItems(ARRAY_DATOS, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -424,7 +424,7 @@ public class Nav_Principal extends AppCompatActivity
                 winDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (valor[0].equals("0")) {
-                            mostrarMensaje("Debe seleccionar una opción.");
+                            mostrarMensaje(getString(R.string.Principal_seleccionar));
 
                         } else {
                             marcarNumero(valor[0]);
@@ -495,8 +495,8 @@ public class Nav_Principal extends AppCompatActivity
             NetworkInfo info = connectivityManager.getActiveNetworkInfo();
             proveedor.setText(manager.getNetworkOperatorName());
             if (info == null || !info.isConnected() || !info.isAvailable() || !info.getTypeName().equals("MOBILE")) {
-                descripcion.setText("Sin conexión.");
-                tipoRed.setText("Sin conexión.");
+                descripcion.setText(getString(R.string.no_conection));
+                tipoRed.setText(getString(R.string.no_conection));
 
             } else {
                 descripcion.setText(info.getExtraInfo());
