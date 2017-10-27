@@ -231,7 +231,7 @@ public class ConfigActivity extends AppCompatActivity {
 
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-        Intent notificationIntent = new Intent(this, Principal.class);
+        Intent notificationIntent = new Intent(this, Nav_Principal.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         nBuilder.setContentIntent(contentIntent)

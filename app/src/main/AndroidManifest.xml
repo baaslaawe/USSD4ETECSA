@@ -46,15 +46,14 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Principal" />
         <activity
             android:name=".ConfigActivity"
-            android:parentActivityName=".Principal">
+            android:parentActivityName=".Nav_Principal">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Principal" />
+                android:value=".Nav_Principal" />
         </activity>
 
         <!-- Todo -->
@@ -78,7 +77,13 @@
         <service
             android:name=".Services.GeneralService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".Transferencia" />
+        <activity
+            android:name=".Nav_Principal"
+            android:label="@string/title_activity_principal__navigation"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

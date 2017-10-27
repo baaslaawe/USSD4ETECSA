@@ -3,7 +3,6 @@ package dev.mad.ussd4etecsa;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +28,7 @@ public class Splash extends AppCompatActivity {
                 try {
                     sleep(3000);
 
-                    Intent intent = new Intent(getApplicationContext(), Principal.class);
+                    Intent intent = new Intent(getApplicationContext(),Nav_Principal.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {

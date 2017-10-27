@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/nav_recargar"
+            android:icon="@drawable/ic_recargar"
+            android:title="Recargar" />
+        <item
+            android:id="@+id/nav_transferir"
+            android:icon="@drawable/ic_tranferir"
+            android:title="Transferir" />
+        <item
+            android:id="@+id/nav_configuracion"
+            android:icon="@drawable/ic_settings_applications"
+            android:title="Configuración" />
+    </group>
+
+    <item android:title="Otros">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_help"
+                android:title="Acerca de." />
+
+        </menu>
+    </item>
+
+</menu>

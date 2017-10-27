@@ -1,6 +1,5 @@
 package dev.mad.ussd4etecsa.Notification;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,7 +19,7 @@ import java.util.List;
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
 import dev.mad.ussd4etecsa.Model.AuxConfigModel;
 import dev.mad.ussd4etecsa.Model.DatUssd;
-import dev.mad.ussd4etecsa.Principal;
+import dev.mad.ussd4etecsa.Nav_Principal;
 import dev.mad.ussd4etecsa.R;
 
 /**
@@ -111,7 +110,7 @@ public class NotificationHelper {
 
         Intent notificationIntent = null;
 
-            notificationIntent = new Intent(this.context, Principal.class);
+            notificationIntent = new Intent(this.context, Nav_Principal.class);
 
 
         PendingIntent contentIntent = PendingIntent.getActivity(this.context, 0, notificationIntent, 0);

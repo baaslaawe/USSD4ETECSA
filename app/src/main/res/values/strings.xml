@@ -35,5 +35,6 @@
     <string name="alert_dialog_mensaje">Introducir código de recarga.</string>
     <string name="alert_Cancel">Cancelar</string>
     <string name="alert_Ok">Recargar</string>
+    <string name="title_activity_principal__navigation">USSD4ETECSA</string>
 
 </resources>

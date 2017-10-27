@@ -1,72 +1,50 @@
 package dev.mad.ussd4etecsa;
 
-import android.annotation.TargetApi;
-
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-
-
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
-import android.service.notification.StatusBarNotification;
-
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-
-import android.support.v4.app.NotificationCompat;
-
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
-
-
-import android.text.Editable;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import android.widget.TextView;
-
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
-
-import java.sql.SQLException;
 import java.util.List;
 
-import dev.mad.ussd4etecsa.Model.AuxConfigModel;
+import dev.mad.ussd4etecsa.AboutUS.AboutUsFragment;
+import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
 import dev.mad.ussd4etecsa.Model.DatUssd;
 import dev.mad.ussd4etecsa.Notification.NotificationHelper;
 import dev.mad.ussd4etecsa.Services.Accesibilidad;
 import dev.mad.ussd4etecsa.Services.GeneralService;
 import dev.mad.ussd4etecsa.Services.UssdService;
-import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
 
-public class Principal extends AppCompatActivity {
-
+public class Nav_Principal extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     ImageButton refresh;
     ImageView bolsa;
@@ -94,19 +72,19 @@ public class Principal extends AppCompatActivity {
     DatabaseHelper dbHelper;
     Intent intentMemoryService;
 
+    private static final String TAG_ABOUT = "about";
 
     private static final String[] ARRAY_VOZ = {"5 Minutos / $1.50", "10 Minutos / $2.90", "15 Minutos / $4.20", "25 Minutos / $6.50", "40 Minutos / $10.00"};
     private static final String[] ARRAY_SMS = {"10 Mensajes / $0.70", "20 Mensajes / $1.30", "35 Mensajes / $2.10", "45 Mensajes / $2.45"};
     private static final String[] ARRAY_DATOS = {"Bolsa Nauta", "Tarifa por Consumo"};
 
-
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.activity_principal_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         notificationHelper = new NotificationHelper(getApplicationContext());
         cv_bono = (CardView) findViewById(R.id.cv_bono);
         refresh = (ImageButton) findViewById(R.id.btn_refresh);
@@ -141,7 +119,7 @@ public class Principal extends AppCompatActivity {
         filter.addAction(Constantes.ACTION_USSD_EXIT);
 
         // Crear un nuevo ResponseReceiver
-        ResponseReceiver receiver = new ResponseReceiver();
+        Nav_Principal.ResponseReceiver receiver = new Nav_Principal.ResponseReceiver();
         // Registrar el receiver y su filtro
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
@@ -187,21 +165,16 @@ public class Principal extends AppCompatActivity {
         });
 
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
-
-    /**
-     * Control sobre la aplicacion
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    /**
-     * Control de la aplicacion
-     */
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onStop() {
         super.onStop();
@@ -209,11 +182,6 @@ public class Principal extends AppCompatActivity {
         notificationHelper.sendUpdateNotificacion();
     }
 
-    /**
-     * Control de aplicacion
-     */
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
     protected void onStart() {
         super.onStart();
         startService(intentMemoryService);
@@ -222,88 +190,99 @@ public class Principal extends AppCompatActivity {
 
     }
 
-    /**
-     * Crear menu
-     *
-     * @param menu
-     * @return
-     */
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detail, menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.principal_navigation, menu);
         return true;
     }
 
-    /**
-     * Acciones del menu
-     *
-     * @param item
-     * @return
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.action_settings: {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-                DialogFragment newFragment = MyDialogFragment.newInstance(0);
-
-                newFragment.show(ft, "dialog");
-
-                return true;
-            }
-            case R.id.action_recargar: {
-                showDialogRecargar(Principal.this);
+            case R.id.action_help: {
+                fragmentGestor(new AboutUsFragment(),TAG_ABOUT);
                 return true;
             }
             case R.id.action_config: {
-
-                Intent intent = new Intent(getApplicationContext(), ConfigActivity.class);
-                startActivity(intent);
+                getConfig();
                 return true;
             }
-            default:
-                return super.onOptionsItemSelected(item);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Función para pintar los fragmentos en la vista principal
+     *
+     * @param fragment
+     */
+    private void fragmentGestor(Fragment fragment, String tag) {
+
+        Fragment containerFragment = getSupportFragmentManager().findFragmentByTag(tag);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (containerFragment == null) {
+            fragmentTransaction.add(R.id.rl_contenedor, fragment, tag);
+            fragmentTransaction.addToBackStack(tag);
+            fragmentTransaction.commit();
+        } else if (!tag.equals(containerFragment.getTag())) {
+            fragmentTransaction.replace(R.id.rl_contenedor, fragment, tag);
+            fragmentTransaction.addToBackStack(tag);
+            fragmentTransaction.commit();
         }
 
     }
 
+
     /**
-     * Dialogo con la dir de la aplicación a conectarse.
      *
-     * @param context
      */
-    public void showDialogRecargar(Context context) {
-        final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(context);
-        final EditText alertText = new EditText(context);
+    private void getConfig() {
+        Intent intent = new Intent(getApplicationContext(), ConfigActivity.class);
+        startActivity(intent);
+    }
 
-        alertText.setHint(R.string.alert_dialog_hint);
-        alert.setMessage(R.string.alert_dialog_mensaje);
-        alert.setTitle(R.string.alert_dialog_title);
-        alert.setView(alertText);
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
-        alert.setPositiveButton(R.string.alert_Ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
+        if (id == R.id.nav_home) {
+            // Handle the camera action
+        } else if (id == R.id.nav_configuracion) {
+            getConfig();
 
-                Editable YouEditTextValue = alertText.getText();
-                marcarNumero("662*" + String.valueOf(YouEditTextValue));
-            }
-        });
+        } else if (id == R.id.nav_recargar) {
 
-        alert.setNegativeButton(R.string.alert_Cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
+        } else if (id == R.id.nav_transferir) {
 
-            }
-        });
+        } else if (id == R.id.nav_share) {
+           fragmentGestor(new AboutUsFragment(),TAG_ABOUT);
 
-        alert.show();
+        }
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     /**
@@ -312,12 +291,9 @@ public class Principal extends AppCompatActivity {
      * @param msg
      */
     private void mostrarMensaje(String msg) {
-        Snackbar.make(findViewById(R.id.coordinator), msg, Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(R.id.rl_contenedor), msg, Snackbar.LENGTH_LONG)
                 .show();
     }
-
-    @Nullable
-
 
     /**
      * Manejador de dialogos
@@ -471,7 +447,6 @@ public class Principal extends AppCompatActivity {
         dialog.show();
     }
 
-
     /**
      * Marcar Codigo USSD
      *
@@ -600,6 +575,4 @@ public class Principal extends AppCompatActivity {
 
         }
     }
-
-
 }
