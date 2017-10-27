@@ -6,10 +6,7 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="@string/inicio" />
-        <item
-            android:id="@+id/nav_recargar"
-            android:icon="@drawable/ic_recargar"
-            android:title="@string/recargar" />
+
         <item
             android:id="@+id/nav_transferir"
             android:icon="@drawable/ic_tranferir"

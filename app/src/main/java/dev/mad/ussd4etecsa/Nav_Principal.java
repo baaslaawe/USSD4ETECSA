@@ -8,7 +8,10 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +19,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,8 +29,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -68,8 +74,10 @@ public class Nav_Principal extends AppCompatActivity
     TextView tv_activo_Voz;
     TextView tv_activo_Sms;
     CardView cv_bono;
+    CollapsingToolbarLayout collapsingToolbarLayout;
     NotificationHelper notificationHelper;
     DatabaseHelper dbHelper;
+    ScrollView scrollView;
     Intent intentMemoryService;
 
     private static final String TAG_ABOUT = "about";
@@ -86,11 +94,13 @@ public class Nav_Principal extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         notificationHelper = new NotificationHelper(getApplicationContext());
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.maincollapsing);
         cv_bono = (CardView) findViewById(R.id.cv_bono);
         refresh = (ImageButton) findViewById(R.id.btn_refresh);
         saldo = (TextView) findViewById(R.id.tv_valor_saldo);
         venceSaldo = (TextView) findViewById(R.id.tv_valor_vence);
         bono = (TextView) findViewById(R.id.tv_bono_saldo);
+        scrollView = (ScrollView) findViewById(R.id.sv_contenedor);
         venceBono = (TextView) findViewById(R.id.tv_bono_vence);
         tv_voz = (TextView) findViewById(R.id.tv_voz_vaue);
         tv_vozVence = (TextView) findViewById(R.id.tv_vtime_val);
@@ -104,7 +114,7 @@ public class Nav_Principal extends AppCompatActivity
 
         tv_bolsa = (TextView) findViewById(R.id.tv_bolsa_value);
         tv_bolsaVence = (TextView) findViewById(R.id.tv_btime_val);
-
+        FloatingActionButton recargarSaldo = (FloatingActionButton) findViewById(R.id.btn_recargar_saldo);
         bolsa = (ImageView) findViewById(R.id.iv_bolsa);
         sms = (ImageView) findViewById(R.id.iv_sms);
         voz = (ImageView) findViewById(R.id.iv_mic);
@@ -119,10 +129,18 @@ public class Nav_Principal extends AppCompatActivity
         filter.addAction(Constantes.ACTION_USSD_EXIT);
 
         // Crear un nuevo ResponseReceiver
-        Nav_Principal.ResponseReceiver receiver = new Nav_Principal.ResponseReceiver();
+        ResponseReceiver receiver = new ResponseReceiver();
         // Registrar el receiver y su filtro
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
+        recargarSaldo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText alertText = (EditText) findViewById(R.id.et_code_recarga);
+                Editable YouEditTextValue = alertText.getText();
+                marcarNumero("662*" + String.valueOf(YouEditTextValue));
+            }
+        });
         //Boton refrescar
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +181,21 @@ public class Nav_Principal extends AppCompatActivity
 
             }
         });
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if (scrollY ==0 && !collapsingToolbarLayout.isShown())
+
+                        collapsingToolbarLayout.setVisibility(View.VISIBLE);
+                    else if (scrollY > 2 && collapsingToolbarLayout.isShown())
+                        collapsingToolbarLayout.setVisibility(View.GONE);
+
+
+
+                }
+            });
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -196,6 +229,7 @@ public class Nav_Principal extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            collapsingToolbarLayout.setVisibility(View.VISIBLE);
             super.onBackPressed();
         }
     }
@@ -217,7 +251,7 @@ public class Nav_Principal extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_help: {
-                fragmentGestor(new AboutUsFragment(),TAG_ABOUT);
+                fragmentGestor(new AboutUsFragment(), TAG_ABOUT);
                 return true;
             }
             case R.id.action_config: {
@@ -243,10 +277,12 @@ public class Nav_Principal extends AppCompatActivity
             fragmentTransaction.add(R.id.rl_contenedor, fragment, tag);
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
+            collapsingToolbarLayout.setVisibility(View.GONE);
         } else if (!tag.equals(containerFragment.getTag())) {
             fragmentTransaction.replace(R.id.rl_contenedor, fragment, tag);
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
+            collapsingToolbarLayout.setVisibility(View.GONE);
         }
 
     }
@@ -271,12 +307,10 @@ public class Nav_Principal extends AppCompatActivity
         } else if (id == R.id.nav_configuracion) {
             getConfig();
 
-        } else if (id == R.id.nav_recargar) {
-
         } else if (id == R.id.nav_transferir) {
 
         } else if (id == R.id.nav_share) {
-           fragmentGestor(new AboutUsFragment(),TAG_ABOUT);
+            fragmentGestor(new AboutUsFragment(), TAG_ABOUT);
 
         }
 

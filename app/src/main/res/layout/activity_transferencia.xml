@@ -41,7 +41,7 @@
                     android:background="@color/primary">
 
                     <EditText
-                        android:id="@+id/et_num_telf"
+                        android:id="@+id/et_code_recarga"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -52,11 +52,11 @@
                         android:inputType="phone"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/btn_buscar_contacto"
+                        app:layout_constraintRight_toLeftOf="@+id/btn_recargar_saldo"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/btn_buscar_contacto"
+                        android:id="@+id/btn_recargar_saldo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
@@ -81,7 +81,7 @@
                         android:inputType="numberPassword"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/btn_cambiar_contraseña"
-                        app:layout_constraintTop_toBottomOf="@+id/et_num_telf" />
+                        app:layout_constraintTop_toBottomOf="@+id/et_code_recarga" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/btn_cambiar_contraseña"
@@ -94,7 +94,7 @@
                         app:elevation="10dp"
                         app:fabSize="mini"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_buscar_contacto"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_recargar_saldo"
                         app:srcCompat="@drawable/ic_lock" />
 
                     <EditText
