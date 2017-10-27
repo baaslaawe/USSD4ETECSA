@@ -1,4 +1,4 @@
-package dev.mad.ussd4etecsa;
+package dev.mad.ussd4etecsa.Splash;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dev.mad.ussd4etecsa.Nav_Principal;
+import dev.mad.ussd4etecsa.R;
 
 public class Splash extends AppCompatActivity {
 
