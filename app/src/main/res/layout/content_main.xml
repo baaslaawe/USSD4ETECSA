@@ -91,6 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
+                            android:layout_marginTop="4dp"
                             android:layout_toEndOf="@+id/iv_bolsa"
                             android:layout_toRightOf="@+id/iv_bolsa"
                             android:paddingLeft="8dp"
@@ -132,12 +133,13 @@
 
                         <ImageView
                             android:id="@+id/iv_config_datos"
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginRight="8dp"
+                            android:layout_marginTop="4dp"
                             android:onClick="mostrarDialogos"
                             app:srcCompat="@drawable/ic_more" />
 
@@ -172,6 +174,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
+                            android:layout_marginTop="4dp"
                             android:layout_weight="1"
                             android:paddingLeft="8dp"
                             android:text="Datos de la red"
@@ -343,6 +346,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
+                            android:layout_marginTop="4dp"
                             android:fontFamily="sans-serif-condensed"
                             android:paddingLeft="8dp"
                             android:text="Su saldo actual es de:" />
@@ -437,6 +441,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
+                            android:layout_marginTop="4dp"
                             android:layout_toEndOf="@+id/iv_mic"
                             android:layout_toRightOf="@+id/iv_mic"
                             android:paddingLeft="8dp"
@@ -466,13 +471,14 @@
 
                         <ImageView
                             android:id="@+id/iv_config_voz"
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginEnd="6dp"
                             android:layout_marginRight="6dp"
+                            android:layout_marginTop="4dp"
                             android:onClick="mostrarDialogos"
                             app:srcCompat="@drawable/ic_more" />
 
@@ -539,6 +545,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
+                            android:layout_marginTop="4dp"
                             android:layout_toEndOf="@+id/iv_sms"
                             android:layout_toRightOf="@+id/iv_sms"
                             android:paddingLeft="8dp"
@@ -580,12 +587,13 @@
 
                         <ImageView
                             android:id="@+id/iv_config_sms"
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginRight="8dp"
+                            android:layout_marginTop="4dp"
                             android:onClick="mostrarDialogos"
                             app:srcCompat="@drawable/ic_more" />
                     </RelativeLayout>

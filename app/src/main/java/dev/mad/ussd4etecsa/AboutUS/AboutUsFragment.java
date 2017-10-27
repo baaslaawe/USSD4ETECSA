@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import dev.mad.ussd4etecsa.BuildConfig;
@@ -20,6 +21,7 @@ import dev.mad.ussd4etecsa.R;
 public class AboutUsFragment extends Fragment {
 
     final static String VERSION = BuildConfig.VERSION_NAME;
+
     public AboutUsFragment() {
         // Required empty public constructor
     }
@@ -32,7 +34,8 @@ public class AboutUsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_about_us, container, false);
         TextView version = (TextView) v.findViewById(R.id.tv_version_val);
         FloatingActionButton contact = (FloatingActionButton) v.findViewById(R.id.btn_contact);
-        contact.setOnClickListener(new View.OnClickListener() {
+        ImageView image = (ImageView) v.findViewById(R.id.iv_text_us);
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openEmail();
