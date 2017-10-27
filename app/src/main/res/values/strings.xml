@@ -12,6 +12,9 @@
     <string name="config">Configuración</string>
     <string name="recargar">Recargar saldo</string>
     <string name="transferir">Transferir saldo</string>
+    <string name="inicio">Inicio</string>
+    <string name="about">Acerca de</string>
+    <string name="otros">Otros</string>
 
     <string name="descripcion_notificacion">Activar acceso directo de los saldos en la barra notificación. </string>
     <string name="descripcion_accesibilidad">Presione para habilitar el servicio de accesibilidad, el cual permite que se puedan mostrar los saldos en la aplicación. </string>

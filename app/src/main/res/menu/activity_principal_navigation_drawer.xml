@@ -5,27 +5,27 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Inicio" />
+            android:title="@string/inicio" />
         <item
             android:id="@+id/nav_recargar"
             android:icon="@drawable/ic_recargar"
-            android:title="Recargar" />
+            android:title="@string/recargar" />
         <item
             android:id="@+id/nav_transferir"
             android:icon="@drawable/ic_tranferir"
-            android:title="Transferir" />
+            android:title="@string/transferir" />
         <item
             android:id="@+id/nav_configuracion"
-            android:icon="@drawable/ic_settings_applications"
-            android:title="Configuración" />
+            android:icon="@drawable/ic_settings"
+            android:title="@string/config" />
     </group>
 
-    <item android:title="Otros">
+    <item android:title="@string/otros">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_help"
-                android:title="Acerca de." />
+                android:title="@string/about" />
 
         </menu>
     </item>

@@ -10,7 +10,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -36,6 +35,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import java.util.List;
 
 import dev.mad.ussd4etecsa.AboutUS.AboutUsFragment;
+import dev.mad.ussd4etecsa.Ajustes.ConfigActivity;
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
 import dev.mad.ussd4etecsa.Model.DatUssd;
 import dev.mad.ussd4etecsa.Notification.NotificationHelper;

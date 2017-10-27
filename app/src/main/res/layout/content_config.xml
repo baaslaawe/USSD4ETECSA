@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="dev.mad.ussd4etecsa.ConfigActivity"
+    tools:context="dev.mad.ussd4etecsa.Ajustes.ConfigActivity"
     tools:showIn="@layout/activity_config">
 
     <android.support.constraint.ConstraintLayout

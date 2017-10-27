@@ -1,4 +1,4 @@
-package dev.mad.ussd4etecsa;
+package dev.mad.ussd4etecsa.Ajustes;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -31,6 +31,8 @@ import dev.mad.ussd4etecsa.Model.DatUssd;
 import dev.mad.ussd4etecsa.Model.AuxConfigModel;
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
 import dev.mad.ussd4etecsa.Model.DatUssdModel;
+import dev.mad.ussd4etecsa.Nav_Principal;
+import dev.mad.ussd4etecsa.R;
 
 public class ConfigActivity extends AppCompatActivity {
 

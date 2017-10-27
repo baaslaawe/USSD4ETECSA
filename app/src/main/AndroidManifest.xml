@@ -47,7 +47,7 @@
         </receiver>
 
         <activity
-            android:name=".ConfigActivity"
+            android:name=".Ajustes.ConfigActivity"
             android:parentActivityName=".Nav_Principal">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
