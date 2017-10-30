@@ -79,11 +79,11 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".Transferencia" />
         <activity
             android:name=".Nav_Principal"
             android:label="@string/title_activity_principal__navigation"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>
