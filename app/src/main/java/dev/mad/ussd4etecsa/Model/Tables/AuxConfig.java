@@ -1,4 +1,4 @@
-package dev.mad.ussd4etecsa.Model;
+package dev.mad.ussd4etecsa.Model.Tables;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

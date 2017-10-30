@@ -22,12 +22,9 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.sql.SQLException;
-import java.util.List;
 
-import dev.mad.ussd4etecsa.Model.DatUssd;
 import dev.mad.ussd4etecsa.Model.AuxConfigModel;
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
 import dev.mad.ussd4etecsa.Model.DatUssdModel;

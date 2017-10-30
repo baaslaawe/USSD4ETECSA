@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
+import dev.mad.ussd4etecsa.Model.Tables.AuxConfig;
 
 /**
  * Created by Daymel on 23/6/2017.

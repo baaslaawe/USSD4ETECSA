@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dev.mad.ussd4etecsa.Transferencia">
-
+    tools:context="dev.mad.ussd4etecsa.Transferencia.TransferenciaFragment">
 
 
     <android.support.design.widget.CoordinatorLayout
@@ -41,7 +39,7 @@
                     android:background="@color/primary">
 
                     <EditText
-                        android:id="@+id/et_code_recarga"
+                        android:id="@+id/et_numtelf"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -52,36 +50,59 @@
                         android:inputType="phone"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/btn_recargar_saldo"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintRight_toLeftOf="@+id/btn_transferir_contacto"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp" />
 
                     <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/btn_recargar_saldo"
+                        android:id="@+id/btn_transferir_contacto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
                         android:layout_marginTop="16dp"
                         android:clickable="true"
-                        app:backgroundTint="@color/colorGray"
+                        app:backgroundTint="@android:color/holo_blue_dark"
                         app:elevation="10dp"
                         app:fabSize="mini"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_account" />
+                        app:srcCompat="@drawable/ic_account_btn"
+                        android:layout_marginEnd="16dp" />
 
-                    <EditText
-                        android:id="@+id/et_contrasenna"
+
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/et_contrasenna_input"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="8dp"
-                        android:ems="10"
-                        android:hint="1234"
-                        android:inputType="numberPassword"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/btn_cambiar_contraseña"
-                        app:layout_constraintTop_toBottomOf="@+id/et_code_recarga" />
+                        app:layout_constraintTop_toBottomOf="@+id/et_numtelf"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/icons">
+
+                        <EditText
+
+                            android:id="@+id/et_contrasenna"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="1234"
+                            android:inputType="numberPassword"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/btn_cambiar_contraseña"
+                            app:layout_constraintTop_toBottomOf="@+id/et_numtelf" />
+
+                    </android.support.design.widget.TextInputLayout>
+
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/btn_cambiar_contraseña"
@@ -90,12 +111,13 @@
                         android:layout_marginRight="16dp"
                         android:layout_marginTop="16dp"
                         android:clickable="true"
-                        app:backgroundTint="@color/colorGray"
+                        app:backgroundTint="@android:color/holo_blue_dark"
                         app:elevation="10dp"
                         app:fabSize="mini"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_recargar_saldo"
-                        app:srcCompat="@drawable/ic_lock" />
+                        app:layout_constraintTop_toBottomOf="@+id/btn_transferir_contacto"
+                        app:srcCompat="@drawable/ic_lock"
+                        android:layout_marginEnd="16dp" />
 
                     <EditText
                         android:id="@+id/et_money"
@@ -110,7 +132,9 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/et_contrasenna" />
+                        app:layout_constraintTop_toBottomOf="@+id/et_contrasenna_input"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -122,13 +146,10 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
 
-            <TextView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_transferencia"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="8dp"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text="Lista de elementos"
-                android:textSize="20sp" />
+                android:layout_height="match_parent" />
         </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.FloatingActionButton
@@ -137,7 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:src="@drawable/ic_send"
-            app:backgroundTint="@color/colorYellow"
+            app:backgroundTint="@android:color/holo_blue_dark"
             app:elevation="5dp"
             app:fabSize="normal"
             app:layout_anchor="@id/main.appbar"
@@ -145,5 +166,4 @@
             app:rippleColor="@color/cardview_light_background" />
     </android.support.design.widget.CoordinatorLayout>
 
-
-</RelativeLayout>
+</FrameLayout>

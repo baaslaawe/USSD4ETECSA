@@ -54,12 +54,16 @@ public class Splash extends AppCompatActivity {
         int permisoCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE);
         int permisoCheck3 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
         int permisoCheck4 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
+        int permisoCheck5 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
 
         List<String> lista_permisos = new ArrayList<>();
 
 
         if (permisoCheck != PackageManager.PERMISSION_GRANTED) {
             lista_permisos.add(Manifest.permission.CALL_PHONE);
+        }
+        if (permisoCheck5 != PackageManager.PERMISSION_GRANTED) {
+            lista_permisos.add(Manifest.permission.READ_CONTACTS);
         }
 
         if (permisoCheck3 != PackageManager.PERMISSION_GRANTED) {

@@ -43,11 +43,12 @@ import java.util.List;
 import dev.mad.ussd4etecsa.AboutUS.AboutUsFragment;
 import dev.mad.ussd4etecsa.Ajustes.ConfigActivity;
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
-import dev.mad.ussd4etecsa.Model.DatUssd;
+import dev.mad.ussd4etecsa.Model.Tables.DatUssd;
 import dev.mad.ussd4etecsa.Notification.NotificationHelper;
 import dev.mad.ussd4etecsa.Services.Accesibilidad;
 import dev.mad.ussd4etecsa.Services.GeneralService;
 import dev.mad.ussd4etecsa.Services.UssdService;
+import dev.mad.ussd4etecsa.Transferencia.TransferenciaFragment;
 
 public class Nav_Principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,6 +82,7 @@ public class Nav_Principal extends AppCompatActivity
     Intent intentMemoryService;
 
     private static final String TAG_ABOUT = "about";
+    private static final String TAG_TRANFERENCIA = "transferencia";
 
     private static final String[] ARRAY_VOZ = {"5 Minutos / $1.50", "10 Minutos / $2.90", "15 Minutos / $4.20", "25 Minutos / $6.50", "40 Minutos / $10.00"};
     private static final String[] ARRAY_SMS = {"10 Mensajes / $0.70", "20 Mensajes / $1.30", "35 Mensajes / $2.10", "45 Mensajes / $2.45"};
@@ -114,7 +116,7 @@ public class Nav_Principal extends AppCompatActivity
 
         tv_bolsa = (TextView) findViewById(R.id.tv_bolsa_value);
         tv_bolsaVence = (TextView) findViewById(R.id.tv_btime_val);
-        FloatingActionButton recargarSaldo = (FloatingActionButton) findViewById(R.id.btn_recargar_saldo);
+        FloatingActionButton recargarSaldo = (FloatingActionButton) findViewById(R.id.btn_transferir_contacto);
         bolsa = (ImageView) findViewById(R.id.iv_bolsa);
         sms = (ImageView) findViewById(R.id.iv_sms);
         voz = (ImageView) findViewById(R.id.iv_mic);
@@ -136,7 +138,7 @@ public class Nav_Principal extends AppCompatActivity
         recargarSaldo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText alertText = (EditText) findViewById(R.id.et_code_recarga);
+                EditText alertText = (EditText) findViewById(R.id.et_numtelf);
                 Editable YouEditTextValue = alertText.getText();
                 marcarNumero("662*" + String.valueOf(YouEditTextValue));
             }
@@ -308,6 +310,7 @@ public class Nav_Principal extends AppCompatActivity
             getConfig();
 
         } else if (id == R.id.nav_transferir) {
+            fragmentGestor(new TransferenciaFragment(),TAG_TRANFERENCIA);
 
         } else if (id == R.id.nav_share) {
             fragmentGestor(new AboutUsFragment(), TAG_ABOUT);

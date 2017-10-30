@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
+import dev.mad.ussd4etecsa.Model.Tables.DatUssd;
 
 /**
  * Created by Daymel on 02/08/2017.

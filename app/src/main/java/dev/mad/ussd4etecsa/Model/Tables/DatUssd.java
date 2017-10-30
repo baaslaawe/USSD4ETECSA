@@ -1,4 +1,4 @@
-package dev.mad.ussd4etecsa.Model;
+package dev.mad.ussd4etecsa.Model.Tables;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -86,11 +86,4 @@ public class DatUssd {
         this.fecha = fecha;
     }
 
-    public SimpleDateFormat getFormateador() {
-        return formateador;
-    }
-
-    public void setFormateador(SimpleDateFormat formateador) {
-        this.formateador = formateador;
-    }
 }

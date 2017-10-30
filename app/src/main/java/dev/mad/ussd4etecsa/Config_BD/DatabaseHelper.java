@@ -12,8 +12,9 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
-import dev.mad.ussd4etecsa.Model.AuxConfig;
-import dev.mad.ussd4etecsa.Model.DatUssd;
+import dev.mad.ussd4etecsa.Model.Tables.AuxConfig;
+import dev.mad.ussd4etecsa.Model.Tables.DatTranferencia;
+import dev.mad.ussd4etecsa.Model.Tables.DatUssd;
 
 /**
  * Created by Daymel on 7/5/2017.
@@ -22,12 +23,14 @@ import dev.mad.ussd4etecsa.Model.DatUssd;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "USSD4ETECSA";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     private Dao<DatUssd, Integer> ussdDao = null;
     private RuntimeExceptionDao<DatUssd, Integer> ussdRuntimeDao = null;
     private Dao<AuxConfig, Integer> configDao = null;
     private RuntimeExceptionDao<AuxConfig, Integer> configRuntimeDao = null;
+    private Dao<DatTranferencia, Integer> tranferenciaDao = null;
+    private RuntimeExceptionDao<DatTranferencia, Integer> transfereneciaRuntimeDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,6 +50,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             Log.i(DatabaseHelper.class.getSimpleName(), "Creando base de datos");
             TableUtils.createTable(connectionSource, DatUssd.class);
             TableUtils.createTable(connectionSource, AuxConfig.class);
+            TableUtils.createTable(connectionSource, DatTranferencia.class);
             RuntimeExceptionDao<DatUssd, Integer> ussdDao = getUssdRuntimeDao();
             ussdDao.create(new DatUssd("SALDO", "0.00", "0/00/0000"));
             ussdDao.create(new DatUssd("BONO", "0.00", "0/00/0000"));
@@ -72,6 +76,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getSimpleName(), "Actualizando base de datos");
             TableUtils.dropTable(connectionSource, DatUssd.class, true);
+            TableUtils.dropTable(connectionSource, AuxConfig.class, true);
+            TableUtils.dropTable(connectionSource, DatTranferencia.class, true);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,6 +120,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             configRuntimeDao = getRuntimeExceptionDao(AuxConfig.class);
         }
         return configRuntimeDao;
+    }
+
+    public Dao<DatTranferencia, Integer> getTranferenciaDao() throws SQLException {
+        if (tranferenciaDao == null) {
+            tranferenciaDao = getDao(DatTranferencia.class);
+
+        }
+        return tranferenciaDao;
+    }
+
+    public RuntimeExceptionDao<DatTranferencia, Integer> getTransfereneciaRuntimeDao() throws SQLException {
+        if (transfereneciaRuntimeDao == null) {
+            transfereneciaRuntimeDao = getRuntimeExceptionDao(DatTranferencia.class);
+        }
+        return transfereneciaRuntimeDao;
     }
 
     /**

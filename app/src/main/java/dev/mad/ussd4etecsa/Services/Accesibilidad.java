@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import dev.mad.ussd4etecsa.Model.DatUssd;
+import dev.mad.ussd4etecsa.Model.Tables.DatUssd;
 import dev.mad.ussd4etecsa.Config_BD.DatabaseHelper;
 import dev.mad.ussd4etecsa.R;
 

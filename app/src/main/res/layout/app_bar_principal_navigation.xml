@@ -36,7 +36,7 @@
                 android:background="@color/primary">
 
                 <EditText
-                    android:id="@+id/et_code_recarga"
+                    android:id="@+id/et_numtelf"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -49,11 +49,11 @@
                     android:textSize="24sp"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/btn_recargar_saldo"
+                    app:layout_constraintRight_toLeftOf="@+id/btn_transferir_contacto"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/btn_recargar_saldo"
+                    android:id="@+id/btn_transferir_contacto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
