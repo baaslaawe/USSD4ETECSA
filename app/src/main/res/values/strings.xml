@@ -32,7 +32,7 @@
     <string name="config_chbox_call">Actualizar después de realizar una llamada. </string>
     <string name="config_chbox_sms">Actualizar después de enviar un sms. </string>
 
-    <string name="alert_dialog_hint">############</string>
+    <string name="alert_dialog_hint">Introducir código de recarga..</string>
     <string name="alert_dialog_title">Recargar saldo</string>
     <string name="alert_dialog_mensaje">Introducir código de recarga.</string>
     <string name="alert_Cancel">Cancelar</string>

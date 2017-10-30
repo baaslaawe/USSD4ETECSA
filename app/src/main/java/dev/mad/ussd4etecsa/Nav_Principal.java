@@ -188,7 +188,7 @@ public class Nav_Principal extends AppCompatActivity
                     if (scrollY ==0 && !collapsingToolbarLayout.isShown())
 
                         collapsingToolbarLayout.setVisibility(View.VISIBLE);
-                    else if (scrollY > 2 && collapsingToolbarLayout.isShown())
+                    else if (scrollY > 5 && collapsingToolbarLayout.isShown())
                         collapsingToolbarLayout.setVisibility(View.GONE);
 
 
