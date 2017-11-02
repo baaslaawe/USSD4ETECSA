@@ -165,9 +165,9 @@ public class Accesibilidad extends AccessibilityService {
         String s;
         Log.i("version SDK", String.valueOf(Build.VERSION.SDK_INT));
         if (Build.VERSION.SDK_INT == 18) {
-            s = (String) eventText.get(1);
+            s = String.valueOf(eventText.get(1));
         } else {
-            s = (String) eventText.get(0);
+            s = String.valueOf(eventText.get(0));
         }
 //        for (CharSequence s : eventText) {
 //            String text = String.valueOf(s);

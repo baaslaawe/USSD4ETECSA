@@ -33,7 +33,7 @@
         android:fontFamily="sans-serif-condensed"
         android:text="Desarrollado por:"
         android:textAllCaps="true"
-        android:textColor="@color/icons"
+        android:textColor="@color/primary_text"
         android:textSize="12sp" />
 
     <TextView
@@ -45,30 +45,31 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/about_us_copy"
-        android:textColor="@color/icons"
+        android:textColor="@color/primary_text"
         android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/iv_logoprincipal"
         android:layout_width="137dp"
         android:layout_height="218dp"
-        android:layout_marginTop="145dp"
-        android:scaleType="centerCrop"
         android:layout_centerInParent="true"
-        app:srcCompat="@drawable/ic_splash"
-         />
+        android:layout_marginTop="145dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_splash" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_logoprincipal"
+        android:layout_centerHorizontal="true"
         android:fontFamily="casual"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textColor="@color/icons"
+        android:textColor="@color/primary_text"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/iv_logoprincipal"
-        android:layout_centerHorizontal="true" />
+        android:textStyle="bold" />
 
 </RelativeLayout>
