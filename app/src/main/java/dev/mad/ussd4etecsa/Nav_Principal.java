@@ -79,6 +79,7 @@ public class Nav_Principal extends AppCompatActivity
     NotificationHelper notificationHelper;
     DatabaseHelper dbHelper;
     ScrollView scrollView;
+    Toolbar toolbar;
     Intent intentMemoryService;
 
     private static final String TAG_ABOUT = "about";
@@ -92,7 +93,7 @@ public class Nav_Principal extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal_navigation);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         notificationHelper = new NotificationHelper(getApplicationContext());
@@ -233,6 +234,7 @@ public class Nav_Principal extends AppCompatActivity
         } else {
             collapsingToolbarLayout.setVisibility(View.VISIBLE);
             super.onBackPressed();
+            toolbar.setTitle(getString(R.string.app_name));
         }
     }
 
@@ -305,12 +307,16 @@ public class Nav_Principal extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
         } else if (id == R.id.nav_configuracion) {
             getConfig();
 
         } else if (id == R.id.nav_transferir) {
             fragmentGestor(new TransferenciaFragment(),TAG_TRANFERENCIA);
+            toolbar.setTitle(getString(R.string.transferir));
 
         } else if (id == R.id.nav_share) {
             fragmentGestor(new AboutUsFragment(), TAG_ABOUT);
