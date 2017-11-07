@@ -36,7 +36,7 @@
                 android:background="@color/primary">
 
                 <EditText
-                    android:id="@+id/et_numtelf"
+                    android:id="@+id/et_codRecarga"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"

@@ -15,6 +15,7 @@ import dev.mad.ussd4etecsa.Nav_Principal;
 import dev.mad.ussd4etecsa.R;
 
 public class Splash extends AppCompatActivity {
+    private int tiempo = 5000;
 
     public static final int REQUEST_MULTIPLE_PERMISSIONS_ID = 456;
 
@@ -24,14 +25,16 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        checkPermiso();
+        if (checkPermiso()) {
+            tiempo = 3000;
+        }
         Thread myThread = new Thread() {
             @Override
             public void run() {
                 try {
-                    sleep(3000);
+                    sleep(tiempo);
 
-                    Intent intent = new Intent(getApplicationContext(),Nav_Principal.class);
+                    Intent intent = new Intent(getApplicationContext(), Nav_Principal.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {
@@ -49,7 +52,7 @@ public class Splash extends AppCompatActivity {
      */
     public boolean checkPermiso() {
 
-        boolean flag = true;
+
         int permisoCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
         int permisoCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE);
         int permisoCheck3 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
@@ -72,15 +75,14 @@ public class Splash extends AppCompatActivity {
         if (permisoCheck2 != PackageManager.PERMISSION_GRANTED) {
             lista_permisos.add(Manifest.permission.ACCESS_NETWORK_STATE);
         }
-
         if (permisoCheck4 != PackageManager.PERMISSION_GRANTED) {
             lista_permisos.add(Manifest.permission.READ_SMS);
         }
         if (!lista_permisos.isEmpty()) {
             ActivityCompat.requestPermissions(this, lista_permisos.toArray(new String[lista_permisos.size()]), REQUEST_MULTIPLE_PERMISSIONS_ID);
-            flag = false;
+            return false;
         }
-        return flag;
+        return true;
 
     }
 

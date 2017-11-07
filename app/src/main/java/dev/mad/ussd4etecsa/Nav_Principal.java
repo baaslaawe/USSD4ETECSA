@@ -75,6 +75,7 @@ public class Nav_Principal extends AppCompatActivity
     TextView tv_activo_Voz;
     TextView tv_activo_Sms;
     CardView cv_bono;
+    EditText alertText;
     CollapsingToolbarLayout collapsingToolbarLayout;
     NotificationHelper notificationHelper;
     DatabaseHelper dbHelper;
@@ -114,7 +115,8 @@ public class Nav_Principal extends AppCompatActivity
 
         tv_sms = (TextView) findViewById(R.id.tv_sms_val);
         tv_smsVence = (TextView) findViewById(R.id.tv_stime_val);
-
+        alertText = (EditText) findViewById(R.id.et_codRecarga);
+        alertText.clearFocus();
         tv_bolsa = (TextView) findViewById(R.id.tv_bolsa_value);
         tv_bolsaVence = (TextView) findViewById(R.id.tv_btime_val);
         FloatingActionButton recargarSaldo = (FloatingActionButton) findViewById(R.id.btn_transferir_contacto);
@@ -139,7 +141,7 @@ public class Nav_Principal extends AppCompatActivity
         recargarSaldo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText alertText = (EditText) findViewById(R.id.et_numtelf);
+                EditText alertText = (EditText) findViewById(R.id.et_codRecarga);
                 Editable YouEditTextValue = alertText.getText();
                 marcarNumero("662*" + String.valueOf(YouEditTextValue));
             }
@@ -184,16 +186,15 @@ public class Nav_Principal extends AppCompatActivity
 
             }
         });
-       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    if (scrollY ==0 && !collapsingToolbarLayout.isShown())
+                    if (scrollY == 0 && !collapsingToolbarLayout.isShown())
 
                         collapsingToolbarLayout.setVisibility(View.VISIBLE);
                     else if (scrollY > 5 && collapsingToolbarLayout.isShown())
                         collapsingToolbarLayout.setVisibility(View.GONE);
-
 
 
                 }
@@ -315,7 +316,7 @@ public class Nav_Principal extends AppCompatActivity
             getConfig();
 
         } else if (id == R.id.nav_transferir) {
-            fragmentGestor(new TransferenciaFragment(),TAG_TRANFERENCIA);
+            fragmentGestor(new TransferenciaFragment(), TAG_TRANFERENCIA);
             toolbar.setTitle(getString(R.string.transferir));
 
         } else if (id == R.id.nav_share) {
