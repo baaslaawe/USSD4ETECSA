@@ -3,6 +3,7 @@ package dev.mad.ussd4etecsa.Model;
 import android.content.Context;
 import android.util.Log;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -27,9 +28,10 @@ public class DatTransferenciaModel {
      * @throws SQLException
      */
     public void insertTransferencia(DatTranferencia newTransfer, Context context) throws SQLException {
+        dbHelper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
         RuntimeExceptionDao<DatTranferencia, Integer> tranferenciaDao = dbHelper.getTransfereneciaRuntimeDao();
         tranferenciaDao.create(newTransfer);
-        Log.i("Transferencia", "Transferencia insertada");
+        Log.i("Transferencia", "Transferencia realizada");
     }
 
     /**
