@@ -20,16 +20,20 @@ import dev.mad.ussd4etecsa.Model.Tables.DatTranferencia;
 
 public class DatTransferenciaModel {
     DatabaseHelper dbHelper;
+    Context mcontext;
 
 
+    public DatTransferenciaModel(Context context){
+        this.dbHelper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
+        this.mcontext = context;
+    }
     /**
-     * @param newTransfer
-     * @param context
+     * @param newTransfer     *
      * @throws SQLException
      */
-    public void insertTransferencia(DatTranferencia newTransfer, Context context) throws SQLException {
-        dbHelper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
-        RuntimeExceptionDao<DatTranferencia, Integer> tranferenciaDao = dbHelper.getTransfereneciaRuntimeDao();
+    public void insertTransferencia(DatTranferencia newTransfer) throws SQLException {
+
+        RuntimeExceptionDao<DatTranferencia, Integer> tranferenciaDao = this.dbHelper.getTransfereneciaRuntimeDao();
         tranferenciaDao.create(newTransfer);
         Log.i("Transferencia", "Transferencia realizada");
     }
@@ -38,11 +42,11 @@ public class DatTransferenciaModel {
      * @return
      * @throws SQLException
      */
-    public List<DatTranferencia> getValorConfig() throws SQLException {
-        RuntimeExceptionDao<DatTranferencia, Integer> transdao = dbHelper.getTransfereneciaRuntimeDao();
+    public List<DatTranferencia> getTranferencias() throws SQLException {
+        RuntimeExceptionDao<DatTranferencia, Integer> transdao = this.dbHelper.getTransfereneciaRuntimeDao();
         QueryBuilder<DatTranferencia, Integer> builder = transdao.queryBuilder();
         builder.limit((long) 10);
-        builder.orderBy("fechaTransferencia", true);
+        builder.orderBy("fechaTransferencia", false);
         List<DatTranferencia> listTranferencia = transdao.query(builder.prepare());
 
         return listTranferencia;

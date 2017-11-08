@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -36,7 +38,9 @@ public class TransferenciaFragment extends Fragment {
     EditText numTelf;
     EditText pass;
     EditText dineroTrans;
+    RecyclerView listaTrans;
     private SharedPreferences prefs;
+    AdapterTransferencia adapterTransferencia;
 
 
     final static int PICK_CONTACT = 456;
@@ -59,7 +63,14 @@ public class TransferenciaFragment extends Fragment {
         numTelf = (EditText) v.findViewById(R.id.et_numtelf);
         pass = (EditText) v.findViewById(R.id.et_contrasenna);
         dineroTrans = (EditText) v.findViewById(R.id.et_money);
+        listaTrans = (RecyclerView) v.findViewById(R.id.rv_transferencia);
         pass.setText(prefs.getString("pass", ""));
+
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity());
+        listaTrans.setLayoutManager(linearLayoutManager);
+
+        adapterTransferencia = new AdapterTransferencia(getContext());
+        listaTrans.setAdapter(adapterTransferencia);
 
 
         btnContacto.setOnClickListener(new View.OnClickListener() {
@@ -89,10 +100,16 @@ public class TransferenciaFragment extends Fragment {
                 editor.commit();
                 if (verificarCampos(numTelf) && verificarCampos(pass) && verificarCampos(dineroTrans)) {
                     marcarNumero("234*1*" + contacto + "*" + passw + "*" + moneyttrans);
-                    DatTransferenciaModel transferenciaModel = new DatTransferenciaModel();
+                    DatTransferenciaModel transferenciaModel = new DatTransferenciaModel(getContext());
                     DatTranferencia tranferencia = new DatTranferencia(contacto,moneyttrans);
+
+
                     try {
-                        transferenciaModel.insertTransferencia(tranferencia,getContext());
+                        transferenciaModel.insertTransferencia(tranferencia);
+                        adapterTransferencia.notifyItemInserted(0);
+                        listaTrans.scrollToPosition(0);
+                        numTelf.setText("");
+                        dineroTrans.setText("1");
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
