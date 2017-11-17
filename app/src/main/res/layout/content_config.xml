@@ -13,29 +13,35 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="16dp"
+        android:paddingBottom="16dp">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cv_accesibilidad"
             android:layout_width="0dp"
-            android:layout_height="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/cv_accesibilidad"
-            tools:layout_constraintRight_creator="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             tools:layout_constraintLeft_creator="1"
-            app:layout_constraintHorizontal_bias="1.0" >
+            tools:layout_constraintRight_creator="1">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -58,13 +64,16 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/textView5"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="sans-serif-condensed"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:paddingTop="4dp"
                     android:text="@string/descripcion_accesibilidad"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/cardview_dark_background" />
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="16sp" />
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -72,7 +81,7 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cv_notification"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -88,7 +97,11 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp">
 
                 <TextView
                     android:id="@+id/tv_notificacion"
@@ -111,11 +124,13 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_notificacion"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="sans-serif-condensed"
                     android:paddingLeft="8dp"
                     android:paddingTop="4dp"
                     android:text="@string/descripcion_notificacion"
-                    android:textColor="@color/cardview_dark_background" />
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="16sp" />
 
                 <Switch
                     android:id="@+id/sw_config_notification"
@@ -124,11 +139,15 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/textView7"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:checked="false"
+                    android:fontFamily="sans-serif-condensed"
                     android:paddingBottom="4dp"
                     android:paddingLeft="8dp"
+                    android:paddingTop="4dp"
                     android:text="Activar notificación "
+                    android:textSize="16sp"
                     tools:checked="false" />
 
             </RelativeLayout>
@@ -138,19 +157,24 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cv_Call_Sms_Reciber"
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_notification"
-            app:layout_constraintHorizontal_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/cv_notification">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
                 android:paddingBottom="8dp">
 
                 <TextView
@@ -160,9 +184,12 @@
                     android:layout_alignLeft="@+id/tv_auto_title"
                     android:layout_alignStart="@+id/tv_auto_title"
                     android:layout_below="@+id/tv_auto_title"
+                    android:layout_marginBottom="4dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="@string/config_Automata_text"
-                    android:textColor="@color/cardview_dark_background" />
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_auto_title"
@@ -185,9 +212,11 @@
                     android:layout_alignStart="@+id/tv_auto_text"
                     android:layout_below="@+id/tv_auto_text"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:paddingRight="4dp"
                     android:text="@string/config_chbox_call"
                     android:textColor="@color/cardview_dark_background"
+                    android:textSize="16sp"
                     app:buttonTint="@color/colorAccent" />
 
                 <CheckBox
@@ -197,10 +226,13 @@
                     android:layout_alignLeft="@+id/cbx_config_call"
                     android:layout_alignStart="@+id/cbx_config_call"
                     android:layout_below="@+id/cbx_config_call"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:paddingRight="4dp"
                     android:text="@string/config_chbox_sms"
                     android:textColor="@color/cardview_dark_background"
+                    android:textSize="16sp"
                     app:buttonTint="@color/colorAccent" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
