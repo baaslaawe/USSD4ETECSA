@@ -13,10 +13,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
-        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Splash.Splash">
+        <activity android:name=".Splash.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,6 +49,7 @@
 
         <activity
             android:name=".Ajustes.ConfigActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".Nav_Principal">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -84,6 +85,7 @@
             android:windowSoftInputMode="adjustPan"
             android:name=".Nav_Principal"
             android:label="@string/title_activity_principal__navigation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:launchMode="singleTask"></activity>
     </application>
