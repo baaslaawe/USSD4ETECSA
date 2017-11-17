@@ -186,21 +186,6 @@ public class Nav_Principal extends AppCompatActivity
 
             }
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    if (scrollY == 0 && !collapsingToolbarLayout.isShown())
-
-                        collapsingToolbarLayout.setVisibility(View.VISIBLE);
-                    else if (scrollY > 5 && collapsingToolbarLayout.isShown())
-                        collapsingToolbarLayout.setVisibility(View.GONE);
-
-
-                }
-            });
-        }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
