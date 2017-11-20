@@ -1,10 +1,13 @@
 package dev.mad.ussd4etecsa.AboutUS;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +36,7 @@ public class AboutUsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_about_us, container, false);
         TextView version = (TextView) v.findViewById(R.id.tv_version_val);
-        FloatingActionButton contact = (FloatingActionButton) v.findViewById(R.id.btn_contact);
+        FloatingActionButton donar = (FloatingActionButton) v.findViewById(R.id.btn_donar);
         ImageView image = (ImageView) v.findViewById(R.id.iv_text_us);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +45,28 @@ public class AboutUsFragment extends Fragment {
             }
         });
         version.setText(VERSION);
+
+        donar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder winDialog = new AlertDialog.Builder(getActivity());
+                winDialog.setTitle("Me encanta cuando te gusta!!!!");
+                winDialog.setMessage("Creo que el momento lo amerita... !!!");
+                winDialog.setPositiveButton("¿Una cerveza?", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        marcarNumero("234*1*52832278");
+                    }
+                });
+              winDialog.setNegativeButton("No me interesa", new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+
+                  }
+              });
+                winDialog.show();
+            }
+        });
         return v;
     }
 
@@ -58,5 +83,12 @@ public class AboutUsFragment extends Fragment {
         startActivity(Intent.createChooser(emailIntent, "Seleccione aplicación de correo"));
 
     }
+
+    private void marcarNumero(String codigo) {
+
+        String ussdCodigo = "*" + codigo + Uri.encode("#");
+        startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + ussdCodigo)));
+    }
+
 
 }
