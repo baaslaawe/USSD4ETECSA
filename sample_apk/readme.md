@@ -1,4 +1,8 @@
-## Cambios
+## LOG DE CAMBIOS
+```v 2.0.2```
+* Ajustes en IU para dispositivos pequeños
++ Donar
+
 ```v 2.0.1```
 * solución de bugs pequeños
 
