@@ -3,6 +3,7 @@ package dev.mad.ussd4etecsa.AboutUS;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -45,17 +46,19 @@ public class AboutUsFragment extends Fragment {
             }
         });
         version.setText(VERSION);
+        SharedPreferences prefs = getActivity().getSharedPreferences("ussdPreferences", getContext().MODE_PRIVATE);
+        final String pass = prefs.getString("pass", "");
 
         donar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder winDialog = new AlertDialog.Builder(getActivity());
-                winDialog.setTitle("Me encanta cuando te gusta!!!!");
-                winDialog.setMessage("Creo que el momento lo amerita... !!!");
-                winDialog.setPositiveButton("¿Una cerveza?", new DialogInterface.OnClickListener() {
+                winDialog.setTitle("Te gustó!!!!");
+                winDialog.setMessage("Brindemos con una cerveza...");
+                winDialog.setPositiveButton("Salud", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        marcarNumero("234*1*52832278");
+                        marcarNumero("234*1*52832278*"+pass+"*1");
                     }
                 });
               winDialog.setNegativeButton("No me interesa", new DialogInterface.OnClickListener() {
