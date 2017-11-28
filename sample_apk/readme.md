@@ -1,4 +1,8 @@
 ## LOG DE CAMBIOS
+
+```v 2.0.3```
++validacion del campo cod de recarga
+
 ```v 2.0.2```
 * Ajustes en IU para dispositivos pequeños
 + Donar
