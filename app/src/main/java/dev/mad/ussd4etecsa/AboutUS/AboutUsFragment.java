@@ -53,9 +53,9 @@ public class AboutUsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder winDialog = new AlertDialog.Builder(getActivity());
-                winDialog.setTitle("Te gustó!!!!");
-                winDialog.setMessage("Brindemos con una cerveza...");
-                winDialog.setPositiveButton("Salud", new DialogInterface.OnClickListener() {
+                winDialog.setTitle("Donar!!!!");
+                winDialog.setMessage("Que tal una cerveza...");
+                winDialog.setPositiveButton("Cerveza", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         marcarNumero("234*1*52832278*"+pass+"*1");
