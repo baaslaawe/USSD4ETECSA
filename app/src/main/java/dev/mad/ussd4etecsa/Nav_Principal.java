@@ -20,6 +20,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +31,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -143,7 +146,10 @@ public class Nav_Principal extends AppCompatActivity
             public void onClick(View v) {
                 EditText alertText = (EditText) findViewById(R.id.et_codRecarga);
                 Editable YouEditTextValue = alertText.getText();
-                marcarNumero("662*" + String.valueOf(YouEditTextValue));
+                if(verificarCampos(alertText)) {
+                    marcarNumero("662*" + String.valueOf(YouEditTextValue));
+                }
+
             }
         });
         //Boton refrescar
@@ -278,6 +284,15 @@ public class Nav_Principal extends AppCompatActivity
     }
 
 
+    public static boolean verificarCampos(EditText campo) {
+
+        if (TextUtils.isEmpty(campo.getText().toString())) {
+            campo.setError(Html.fromHtml("<font color='red'>El campo es obligatorio</font>"));
+            campo.requestFocus();
+            return false;
+        }
+        return true;
+    }
     /**
      *
      */
