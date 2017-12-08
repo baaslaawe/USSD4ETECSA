@@ -14,6 +14,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
@@ -79,6 +80,7 @@ public class Nav_Principal extends AppCompatActivity
     TextView tv_activo_Sms;
     CardView cv_bono;
     EditText alertText;
+    FragmentManager fragmentManager;
     CollapsingToolbarLayout collapsingToolbarLayout;
     NotificationHelper notificationHelper;
     DatabaseHelper dbHelper;
@@ -100,6 +102,7 @@ public class Nav_Principal extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        fragmentManager = getSupportFragmentManager();
         notificationHelper = new NotificationHelper(getApplicationContext());
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.maincollapsing);
         cv_bono = (CardView) findViewById(R.id.cv_bono);
@@ -148,6 +151,7 @@ public class Nav_Principal extends AppCompatActivity
                 Editable YouEditTextValue = alertText.getText();
                 if(verificarCampos(alertText)) {
                     marcarNumero("662*" + String.valueOf(YouEditTextValue));
+                    alertText.setText("");
                 }
 
             }
@@ -220,13 +224,18 @@ public class Nav_Principal extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            collapsingToolbarLayout.setVisibility(View.VISIBLE);
+            if(fragmentManager.getBackStackEntryCount()==1){
+                collapsingToolbarLayout.setVisibility(View.VISIBLE);
+                toolbar.setTitle(getString(R.string.app_name));
+            }
+
             super.onBackPressed();
-            toolbar.setTitle(getString(R.string.app_name));
+
         }
     }
 

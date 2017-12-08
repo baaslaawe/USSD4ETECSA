@@ -65,6 +65,12 @@
     <string name="servicio_vence">Por:</string>
     <string name="no_service">Sin servicio</string>
 
+    <string name="hint_trans_contacto">Número de telf. a transferir</string>
+    <string name="hint_trans_money">1 CUC</string>
+    <string name="hint_trans_pass">Contraseña</string>
+    <string name="hint_trans_pass_val">1234</string>
+
+
 
     <string name="title_activity_principal__navigation">USSD4ETECSA</string>
 

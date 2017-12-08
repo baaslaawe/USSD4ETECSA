@@ -6,8 +6,7 @@
     tools:context="dev.mad.ussd4etecsa.Transferencia.TransferenciaFragment">
 
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/background_light"
@@ -36,6 +35,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/primary">
 
+
                     <EditText
                         android:id="@+id/et_numtelf"
                         android:layout_width="0dp"
@@ -47,12 +47,13 @@
                         android:layout_marginTop="8dp"
                         android:ems="10"
                         android:fontFamily="sans-serif-condensed"
-                        android:hint="Número de telf. a transferir"
+                        android:hint="@string/hint_trans_contacto"
                         android:inputType="phone"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/btn_transferir_contacto"
                         app:layout_constraintTop_toTopOf="parent" />
+
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/btn_transferir_contacto"
@@ -99,8 +100,9 @@
                         android:layout_marginTop="7dp"
                         android:ems="10"
                         android:fontFamily="sans-serif-condensed"
-                        android:hint="1 CUC"
+                        android:hint="@string/hint_trans_money"
                         android:inputType="text|number"
+                        android:maxLength="3"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -131,9 +133,10 @@
                             android:layout_weight="1"
                             android:ems="10"
                             android:fontFamily="sans-serif-condensed"
-                            android:hint="Contraseña"
+                            android:hint="@string/hint_trans_pass"
                             android:inputType="numberPassword"
-                            android:text="1234"
+                            android:maxLength="4"
+                            android:text="@string/hint_trans_pass_val"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toLeftOf="@+id/btn_cambiar_contraseña"
                             app:layout_constraintTop_toBottomOf="@+id/et_numtelf" />
