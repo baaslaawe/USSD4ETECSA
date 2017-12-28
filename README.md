@@ -1,8 +1,15 @@
 # USSD4ETECSA
 
-Esta aplicación te permite conocer tu saldo después de realizar una llamada o enviar un sms.
+ Esta aplicación para la visualizazión de códigos USSD de ETECSA.
 
 ![USSD4ETECSA](https://github.com/Daym3l/USSD4ETECSA/blob/master/sample_img/sample.png)
+
+## Funcionalidades
+
+* Recargar saldo.
+* Transferir saldo,historial de transferencias.
+* Activar planes (Voz,Sms,Datos).
+* Visualizar Saldos.
 
 ## Descripción
 
@@ -15,7 +22,13 @@ Para lograr esto, la aplicación captura las respuesta de códigos USSD después
 * Importar proyecto.
 
 ## Versión
-```1.0```
+```2.0.4```
+
+## Estado
+```Estable```
+
+## Android MinSDK
+`4.1.2(16)`
 
 ## Autor
 
