@@ -1,7 +1,10 @@
 ## LOG DE CAMBIOS
 
+```v 2.0.4```
+* mejoras para IU
+
 ```v 2.0.3```
-+validacion del campo cod de recarga
++ validacion del campo cod de recarga
 
 ```v 2.0.2```
 * Ajustes en IU para dispositivos pequeños
