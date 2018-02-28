@@ -10,6 +10,7 @@
 * Transferir saldo,historial de transferencias.
 * Activar planes (Voz,Sms,Datos).
 * Visualizar Saldos.
+* Notificación actualizada de saldos despues de realizar llamado o enviar sms (experimental).
 
 ## Descripción
 
