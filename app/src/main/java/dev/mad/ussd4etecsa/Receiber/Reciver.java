@@ -1,15 +1,22 @@
 package dev.mad.ussd4etecsa.Receiber;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.provider.CallLog;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
 
 import dev.mad.ussd4etecsa.Model.DatUssdModel;
 import dev.mad.ussd4etecsa.Notification.NotificationHelper;
@@ -36,7 +43,8 @@ public class Reciver extends BroadcastReceiver {
             sp.edit().putBoolean("flag", true).commit();
         }
         flag = sp.getBoolean("flag", true);
-        if (callState.equals(TelephonyManager.EXTRA_STATE_IDLE) && flag && chxStateCall) {
+        if (callState.equals(TelephonyManager.EXTRA_STATE_IDLE) && !LastCall(context).equals("0")) {
+
             new CountDownTimer(5000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
@@ -108,5 +116,33 @@ public class Reciver extends BroadcastReceiver {
         String saldoCall = "";
         saldoCall = ussdModel.getValor(accion, context);
         return saldoCall;
+    }
+
+    public String LastCall(Context context) {
+        StringBuffer sb = new StringBuffer();
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return "";
+        }
+        Cursor cur = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, android.provider.CallLog.Calls.DATE + " DESC");
+
+        int number = cur.getColumnIndex(CallLog.Calls.NUMBER);
+        int duration = cur.getColumnIndex(CallLog.Calls.DURATION);
+
+        while (cur.moveToNext()) {
+            String phNumber = cur.getString(number);
+            String callDuration = cur.getString(duration);
+            sb.append(callDuration);
+            break;
+        }
+        cur.close();
+        String str = sb.toString();
+        return str;
     }
 }

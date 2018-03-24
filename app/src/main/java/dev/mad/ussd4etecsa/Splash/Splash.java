@@ -58,6 +58,7 @@ public class Splash extends AppCompatActivity {
         int permisoCheck3 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
         int permisoCheck4 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
         int permisoCheck5 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
+        int permisoCheck6 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG);
 
         List<String> lista_permisos = new ArrayList<>();
 
@@ -77,6 +78,9 @@ public class Splash extends AppCompatActivity {
         }
         if (permisoCheck4 != PackageManager.PERMISSION_GRANTED) {
             lista_permisos.add(Manifest.permission.READ_SMS);
+        }
+        if (permisoCheck6 != PackageManager.PERMISSION_GRANTED) {
+            lista_permisos.add(Manifest.permission.READ_CALL_LOG);
         }
         if (!lista_permisos.isEmpty()) {
             ActivityCompat.requestPermissions(this, lista_permisos.toArray(new String[lista_permisos.size()]), REQUEST_MULTIPLE_PERMISSIONS_ID);
