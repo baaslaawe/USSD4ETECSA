@@ -66,7 +66,7 @@ public class TransferenciaFragment extends Fragment {
         listaTrans = (RecyclerView) v.findViewById(R.id.rv_transferencia);
         pass.setText(prefs.getString("pass", ""));
 
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listaTrans.setLayoutManager(linearLayoutManager);
 
         adapterTransferencia = new AdapterTransferencia(getContext());
@@ -101,7 +101,7 @@ public class TransferenciaFragment extends Fragment {
                 if (verificarCampos(numTelf) && verificarCampos(pass) && verificarCampos(dineroTrans)) {
                     marcarNumero("234*1*" + contacto + "*" + passw + "*" + moneyttrans);
                     DatTransferenciaModel transferenciaModel = new DatTransferenciaModel(getContext());
-                    DatTranferencia tranferencia = new DatTranferencia(contacto,moneyttrans);
+                    DatTranferencia tranferencia = new DatTranferencia(contacto, moneyttrans);
 
 
                     try {
@@ -140,11 +140,23 @@ public class TransferenciaFragment extends Fragment {
                     cursor.moveToFirst();
 
                     String number = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    numTelf.setText(number);
+                    numTelf.setText(convertNumber(number));
 
                 }
             }
         }
+    }
+
+    /**
+     * @param number
+     * @return
+     */
+    private String convertNumber(String number) {
+
+        String[] parts = number.split("\\+");
+        if (parts.length > 1)
+            number = parts[1];
+        return number;
     }
 
     /**
