@@ -61,6 +61,7 @@ public class Nav_Principal extends AppCompatActivity
     ImageView bolsa;
     ImageView sms;
     ImageView voz;
+    ImageView iv_bono;
 
     TextView descripcion;
     TextView tipoRed;
@@ -68,6 +69,7 @@ public class Nav_Principal extends AppCompatActivity
     TextView saldo;
     TextView venceSaldo;
     TextView bono;
+    TextView bonoSms;
     TextView venceBono;
     TextView tv_voz;
     TextView tv_vozVence;
@@ -78,6 +80,7 @@ public class Nav_Principal extends AppCompatActivity
     TextView tv_activo_Datos;
     TextView tv_activo_Voz;
     TextView tv_activo_Sms;
+    TextView tv_activo_Bono;
     CardView cv_bono;
     EditText alertText;
     FragmentManager fragmentManager;
@@ -110,6 +113,7 @@ public class Nav_Principal extends AppCompatActivity
         saldo = (TextView) findViewById(R.id.tv_valor_saldo);
         venceSaldo = (TextView) findViewById(R.id.tv_valor_vence);
         bono = (TextView) findViewById(R.id.tv_bono_saldo);
+        bonoSms = (TextView) findViewById(R.id.tv_bono_sms);
         scrollView = (ScrollView) findViewById(R.id.sv_contenedor);
         venceBono = (TextView) findViewById(R.id.tv_bono_vence);
         tv_voz = (TextView) findViewById(R.id.tv_voz_vaue);
@@ -118,6 +122,7 @@ public class Nav_Principal extends AppCompatActivity
         tv_activo_Datos = (TextView) findViewById(R.id.tv_act_datos);
         tv_activo_Sms = (TextView) findViewById(R.id.tv_act_sms);
         tv_activo_Voz = (TextView) findViewById(R.id.tv_act_voz);
+        tv_activo_Bono = (TextView) findViewById(R.id.tv_noservice_bono);
 
         tv_sms = (TextView) findViewById(R.id.tv_sms_val);
         tv_smsVence = (TextView) findViewById(R.id.tv_stime_val);
@@ -129,6 +134,7 @@ public class Nav_Principal extends AppCompatActivity
         bolsa = (ImageView) findViewById(R.id.iv_bolsa);
         sms = (ImageView) findViewById(R.id.iv_sms);
         voz = (ImageView) findViewById(R.id.iv_mic);
+        iv_bono = (ImageView) findViewById(R.id.iv_bono);
         descripcion = (TextView) findViewById(R.id.tv_descrip);
         tipoRed = (TextView) findViewById(R.id.tv_tipodred);
         proveedor = (TextView) findViewById(R.id.tv_proveedor_name);
@@ -149,7 +155,7 @@ public class Nav_Principal extends AppCompatActivity
             public void onClick(View v) {
                 EditText alertText = (EditText) findViewById(R.id.et_codRecarga);
                 Editable YouEditTextValue = alertText.getText();
-                if(verificarCampos(alertText)) {
+                if (verificarCampos(alertText)) {
                     marcarNumero("662*" + String.valueOf(YouEditTextValue));
                     alertText.setText("");
                 }
@@ -184,6 +190,13 @@ public class Nav_Principal extends AppCompatActivity
                 startService(new Intent(v.getContext(), Accesibilidad.class));
                 marcarNumero("222*869");
 
+            }
+        });
+        iv_bono.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startService(new Intent(v.getContext(), Accesibilidad.class));
+                marcarNumero("222*266");
             }
         });
 
@@ -229,7 +242,7 @@ public class Nav_Principal extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(fragmentManager.getBackStackEntryCount()==1){
+            if (fragmentManager.getBackStackEntryCount() == 1) {
                 collapsingToolbarLayout.setVisibility(View.VISIBLE);
                 toolbar.setTitle(getString(R.string.app_name));
             }
@@ -302,6 +315,7 @@ public class Nav_Principal extends AppCompatActivity
         }
         return true;
     }
+
     /**
      *
      */
@@ -548,8 +562,8 @@ public class Nav_Principal extends AppCompatActivity
             NetworkInfo info = connectivityManager.getActiveNetworkInfo();
             proveedor.setText(manager.getNetworkOperatorName());
             if (info == null || !info.isConnected() || !info.isAvailable() || !info.getTypeName().equals("MOBILE")) {
-                descripcion.setText(getString(R.string.no_conection));
-                tipoRed.setText(getString(R.string.no_conection));
+                descripcion.setText("APN");
+                tipoRed.setText("tipo de red");
 
             } else {
                 descripcion.setText(info.getExtraInfo());
@@ -581,14 +595,26 @@ public class Nav_Principal extends AppCompatActivity
             List<DatUssd> ussdObjetctBono = ussdDao.queryForEq("name", "BONO");
             saldo.setText(ussdObjetctSaldo.get(0).getValor());
             venceSaldo.setText(ussdObjetctSaldo.get(0).getFechavencimiento() + " ");
-            bono.setText(ussdObjetctBono.get(0).getValor());
-            venceBono.setText(ussdObjetctBono.get(0).getFechavencimiento() + " ");
 
-            if (ussdObjetctBono.get(0).getValor().equals("0.00")) {
-                cv_bono.setVisibility(View.INVISIBLE);
+
+            // Servicio de Bono
+            if (ussdObjetctBono.get(0).getValor().equals("00:00:00")|| ussdObjetctBono.get(0).getValor().equals("0.00")) {
+                bono.setText(ussdObjetctBono.get(0).getValor() + " MIN");
+                bonoSms.setText(0 + " SMS");
+                venceBono.setText(ussdObjetctBono.get(0).getFechavencimiento());
+                tv_activo_Bono.setText("Sin Bonificación.");
+                tv_activo_Bono.setTextColor(getResources().getColor(R.color.rojo));
             } else {
-                cv_bono.setVisibility(View.VISIBLE);
+                List<String> valores = Util.convertirCadena(ussdObjetctBono.get(0).getValor());
+                bono.setText(valores.get(0) + " MIN");
+                bonoSms.setText(valores.get(1) + " SMS");
+                venceBono.setText(ussdObjetctBono.get(0).getFechavencimiento());
+                tv_activo_Bono.setText("Bono activo.");
+                tv_activo_Bono.setTextColor(getResources().getColor(R.color.verde));
+
             }
+
+            // Servicio de VOZ
             List<DatUssd> ussdObjetctVoz = ussdDao.queryForEq("name", "VOZ");
             if (ussdObjetctVoz.get(0).getFechavencimiento().equals("0")) {
                 tv_activo_Voz.setText("Sin servicio.");
@@ -601,6 +627,8 @@ public class Nav_Principal extends AppCompatActivity
                 tv_voz.setText(ussdObjetctVoz.get(0).getValor() + " MIN");
                 tv_vozVence.setText(ussdObjetctVoz.get(0).getFechavencimiento() + " días");
             }
+
+            // Servicio de SMS
             List<DatUssd> ussdObjetctSms = ussdDao.queryForEq("name", "SMS");
             if (ussdObjetctSms.get(0).getFechavencimiento().equals("0")) {
                 tv_activo_Sms.setText("Sin servicio.");
@@ -613,6 +641,8 @@ public class Nav_Principal extends AppCompatActivity
                 tv_sms.setText(ussdObjetctSms.get(0).getValor() + " SMS");
                 tv_smsVence.setText(ussdObjetctSms.get(0).getFechavencimiento() + " días");
             }
+
+            // Servicio de BOLSA
             List<DatUssd> ussdObjetctBolsa = ussdDao.queryForEq("name", "BOLSA");
             if (ussdObjetctBolsa.get(0).getFechavencimiento().equals("0")) {
                 tv_activo_Datos.setText("Sin servicio.");

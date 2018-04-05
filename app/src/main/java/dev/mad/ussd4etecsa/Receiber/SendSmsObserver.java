@@ -9,7 +9,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
-
+import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 
 
 import java.sql.SQLException;
@@ -50,11 +51,11 @@ public class SendSmsObserver extends ContentObserver {
         Cursor cur = mContext.getContentResolver().query(uriSms, null, null, null, null);
         // this will make it point to the first record, which is the last
         // SMS sent
-        //Todo revisar porque vulve a incrementar
+
         cur.moveToNext();
         String id = cur.getString(cur.getColumnIndex("_id"));
+        final String address = cur.getString(cur.getColumnIndex("address"));
         final String body = cur.getString(cur.getColumnIndex("body"));
-
 
 
         boolean chxStateSms = sp.getBoolean("cSMS", true);
@@ -67,7 +68,7 @@ public class SendSmsObserver extends ContentObserver {
 
                 public void onFinish() {
                     try {
-                        accionDemorada(mContext, Util.convertirCadena(body));
+                        accionDemorada(mContext, Util.convertirCadena(body), address);
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -83,6 +84,7 @@ public class SendSmsObserver extends ContentObserver {
 
     /**
      * Prevent duplicate results without overlooking legitimate duplicates
+     *
      * @param smsId
      * @return
      */
@@ -99,20 +101,28 @@ public class SendSmsObserver extends ContentObserver {
     }
 
     /**
-     *
      * @param context
      * @throws SQLException
      */
-    private void accionDemorada(Context context, List<String> cadena) throws SQLException {
+    private void accionDemorada(Context context, List<String> cadena, String dir) throws SQLException {
         String ussdCod = "222";
         if (!getValorSaldos("SMS", context).equals("0")) {
             ussdCod = "222*767";
         }
-        //todo verificar mensages
-        /*if(cadena.get(2).equals("transferido")){
+        if (!getValorSaldos("BONO", context).equals("00:00:00") && !getValorSaldos("BONO", context).equals("0.00")) {
+            ussdCod = "222*266";
+        }
+        // TODO: 2/4/2018 tratar mensaje para la tranasferencia 
+//        if(cadena.get())
 
-        }*/
-        marcarNumero(ussdCod, context);
+        // TODO: 24/3/2018 introducir numero en la aplicacion
+        if (dir.equals('5')) {
+// TODO: 24/3/2018  aqui se tratan los sms
+        } else {
+            marcarNumero(ussdCod, context);
+        }
+
+
         final NotificationHelper notificationHelper = new NotificationHelper(context);
         new CountDownTimer(10000, 1000) {
 
@@ -128,7 +138,6 @@ public class SendSmsObserver extends ContentObserver {
     }
 
     /**
-     *
      * @param accion
      * @param context
      * @return

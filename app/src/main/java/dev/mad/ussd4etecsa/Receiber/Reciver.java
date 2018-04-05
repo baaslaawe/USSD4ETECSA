@@ -39,10 +39,6 @@ public class Reciver extends BroadcastReceiver {
         final SharedPreferences sp = context.getSharedPreferences("ussdPreferences", context.MODE_PRIVATE);
         boolean chxStateCall = sp.getBoolean("cCall", true);
 
-        if (callState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-            sp.edit().putBoolean("flag", true).commit();
-        }
-        flag = sp.getBoolean("flag", true);
         if (callState.equals(TelephonyManager.EXTRA_STATE_IDLE) && !LastCall(context).equals("0")) {
 
             new CountDownTimer(5000, 1000) {
@@ -54,7 +50,7 @@ public class Reciver extends BroadcastReceiver {
                 public void onFinish() {
                     try {
                         accionDemorada(context, "call");
-                        sp.edit().putBoolean("flag", false).commit();
+
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -89,6 +85,9 @@ public class Reciver extends BroadcastReceiver {
         Log.i("call", ussdModel.getValor("VOZ", context));
         if (!getValorSaldos("VOZ", context).equals("0:00:00") && !getValorSaldos("VOZ", context).equals("0")) {
             ussdCod = "222*869";
+        }
+        if (!getValorSaldos("BONO", context).equals("00:00:00") && !getValorSaldos("BONO", context).equals("0.00")) {
+            ussdCod = "222*266";
         }
         marcarNumero(ussdCod, context);
         final NotificationHelper notificationHelper = new NotificationHelper(context);
@@ -128,7 +127,7 @@ public class Reciver extends BroadcastReceiver {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return "";
+
         }
         Cursor cur = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, android.provider.CallLog.Calls.DATE + " DESC");
 

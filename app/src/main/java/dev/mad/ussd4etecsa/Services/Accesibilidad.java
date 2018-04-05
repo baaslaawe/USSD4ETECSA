@@ -68,7 +68,7 @@ public class Accesibilidad extends AccessibilityService {
             if (TextUtils.isEmpty(text)) return;
 
             // Close dialog
-            if(!text.equals(getString(R.string.alert_dialog_title))){
+            if (!text.equals(getString(R.string.alert_dialog_title))) {
                 performGlobalAction(GLOBAL_ACTION_BACK); // This works on 4.1+ only
             }
 
@@ -97,7 +97,7 @@ public class Accesibilidad extends AccessibilityService {
                 updateSaldo(valores.get(3), valores.get(7), "VOZ");
 
             }
-            if (valores.get(4).equals("SMS")) {
+            if (valores.get(4).equals("SMS") && !valores.get(0).equals("Bono:Min.")) {
                 updateSaldo(valores.get(3), valores.get(7), "SMS");
 
             }
@@ -116,21 +116,26 @@ public class Accesibilidad extends AccessibilityService {
                 updateSaldo("0", "0", "SMS");
             }
             if (valores.get(6).equals("Minutos.")) {
-                updateSaldo("0:00:00", "0", "VOZ");
+                updateSaldo("0:00:00 ", "0", "VOZ");
             }
             if (valores.get(4).equals("oferta.")) {
                 updateSaldo("0.00", "0", "BOLSA");
             }
-        }
-        if (valores.size() > 9) {
-            if (valores.get(9).equals("Bono:")) {
-                updateSaldo(valores.get(10), valores.get(12), "BONO");
+
+            if (valores.get(0).equals("Bono:Min.")) {
+                String valor = valores.get(1);
+                valor += " " + valores.get(5);
+                updateSaldo(valor, valores.get(3), "BONO");
             }
         }
-        if(!respuesta.equals(getString(R.string.alert_dialog_title))){
+        if (valores.size() == 6) {
+            if (valores.get(4).equals("bonos")) {
+                updateSaldo("00:00:00", "0-00-00", "BONO");
+            }
+        }
+        if (!respuesta.equals(getString(R.string.alert_dialog_title))) {
             mostrarToast(respuesta);
         }
-
 
 
     }
@@ -164,7 +169,7 @@ public class Accesibilidad extends AccessibilityService {
 
         String s;
         Log.i("version SDK", String.valueOf(Build.VERSION.SDK_INT));
-        if (Build.VERSION.SDK_INT == 18 ||Build.VERSION.SDK_INT == 17 || Build.VERSION.SDK_INT == 16) {
+        if (Build.VERSION.SDK_INT == 18 || Build.VERSION.SDK_INT == 17 || Build.VERSION.SDK_INT == 16) {
             s = String.valueOf(eventText.get(1));
         } else {
             s = String.valueOf(eventText.get(0));

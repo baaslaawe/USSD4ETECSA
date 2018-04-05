@@ -21,6 +21,7 @@ import dev.mad.ussd4etecsa.Model.AuxConfigModel;
 import dev.mad.ussd4etecsa.Model.Tables.DatUssd;
 import dev.mad.ussd4etecsa.Nav_Principal;
 import dev.mad.ussd4etecsa.R;
+import dev.mad.ussd4etecsa.Util;
 
 /**
  * Created by Daymel on 9/3/2017.
@@ -42,8 +43,7 @@ public class NotificationHelper {
     }
 
 
-
-    public void sendUpdateNotificacion(){
+    public void sendUpdateNotificacion() {
         AuxConfigModel modelConfig = new AuxConfigModel();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (verificarNotifications()) {
@@ -51,7 +51,7 @@ public class NotificationHelper {
             }
         } else {
             try {
-                if (modelConfig.existeConfig("NOTIFICATION",this.context)) {
+                if (modelConfig.existeConfig("NOTIFICATION", this.context)) {
                     if (modelConfig.getValorConfig("NOTIFICATION").equals("1")) {
                         resetNotication();
                     }
@@ -64,6 +64,7 @@ public class NotificationHelper {
 
     /**
      * Verificar q la notificacion este activa
+     *
      * @return
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -100,6 +101,7 @@ public class NotificationHelper {
         List<DatUssd> ussdObjetctVoz = ussdDao.queryForEq("name", "VOZ");
         List<DatUssd> ussdObjetctSms = ussdDao.queryForEq("name", "SMS");
         List<DatUssd> ussdObjetctBolsa = ussdDao.queryForEq("name", "BOLSA");
+        List<DatUssd> ussdObjetctBono = ussdDao.queryForEq("name", "BONO");
 
         String saldos = "Saldo principal: " + ussdObjetctSaldo.get(0).getValor();
         // Definimos la accion de la pulsacion sobre la sendNotifacation (esto es opcional)
@@ -110,7 +112,7 @@ public class NotificationHelper {
 
         Intent notificationIntent = null;
 
-            notificationIntent = new Intent(this.context, Nav_Principal.class);
+        notificationIntent = new Intent(this.context, Nav_Principal.class);
 
 
         PendingIntent contentIntent = PendingIntent.getActivity(this.context, 0, notificationIntent, 0);
@@ -121,8 +123,8 @@ public class NotificationHelper {
                 .setContentTitle("Saldo Disponible")
                 .setContentText(saldos);
 
-        if (!ussdObjetctVoz.get(0).getValor().equals("0") || !ussdObjetctSms.get(0).getValor().equals("0") ||  !ussdObjetctBolsa.get(0).getValor().equals("0")) {
-            String[] events = new String[4];
+        if (!ussdObjetctVoz.get(0).getValor().equals("0") || !ussdObjetctSms.get(0).getValor().equals("0") || !ussdObjetctBolsa.get(0).getValor().equals("0")) {
+            String[] events = new String[5];
 
             events[0] = new String(saldos);
             if (!ussdObjetctVoz.get(0).getValor().equals("0") && !ussdObjetctVoz.get(0).getValor().equals("0:00:00")) {
@@ -131,8 +133,12 @@ public class NotificationHelper {
             if (!ussdObjetctSms.get(0).getValor().equals("0")) {
                 events[2] = new String("SMS: " + ussdObjetctSms.get(0).getValor() + " SMS por " + ussdObjetctSms.get(0).getFechavencimiento() + " días");
             }
-            if (!ussdObjetctBolsa.get(0).getValor().equals("0") && !ussdObjetctBolsa.get(0).getValor().equals("0.00") ) {
+            if (!ussdObjetctBolsa.get(0).getValor().equals("0") && !ussdObjetctBolsa.get(0).getValor().equals("0.00")) {
                 events[3] = new String("Datos: " + ussdObjetctBolsa.get(0).getValor() + " por " + ussdObjetctBolsa.get(0).getFechavencimiento() + " días");
+            }
+            if (!ussdObjetctBono.get(0).getValor().equals("00:00:00") && !ussdObjetctBono.get(0).getValor().equals("0.00")) {
+                List bono = Util.convertirCadena(ussdObjetctBono.get(0).getValor());
+                events[4] = new String("BONO: " + bono.get(0) + " MIN y " + bono.get(1) + " SMS hasta el " + ussdObjetctBono.get(0).getFechavencimiento());
             }
 
 

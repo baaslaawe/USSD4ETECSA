@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">USSD4ETECSA</string>
-    <string name="accessibility_service_description">Habilitar <b>USSD4ETECSA</b> para poder obtener la infomación de los dialogos de saldo y asi poder mantener la Base de datos de la aplicación actulizada.Cuando habilites esta opción podras obtener la vizualización de tus saldos en la barra de notificación y siempre saber la informacion de tu saldo, asi como los servicios contratados.
+    <string name="app_name">USSD4ETEXA</string>
+    <string name="accessibility_service_description">Habilitar <b>USSD4ETEXA</b> para poder obtener la infomación de los dialogos de saldo y asi poder mantener la Base de datos de la aplicación actulizada.Cuando habilites esta opción podras obtener la vizualización de tus saldos en la barra de notificación y siempre saber la informacion de tu saldo, asi como los servicios contratados.
     </string>
-    <string name="ayuda_app"> Activar el servicio de accesibilidad en - [AJUSTES> ACCESIBILIDAD> USSD4ETECSA] -  el cual permite que se puedan mostrar los saldos en la aplicación.</string>
+    <string name="ayuda_app"> Activar el servicio de accesibilidad en - [AJUSTES> ACCESIBILIDAD> USSD4ETEXA] -  el cual permite que se puedan mostrar los saldos en la aplicación.</string>
     <string name="title_activity_main">MainActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -72,6 +72,6 @@
 
 
 
-    <string name="title_activity_principal__navigation">USSD4ETECSA</string>
+    <string name="title_activity_principal__navigation">USSD4ETEXA</string>
 
 </resources>

@@ -22,7 +22,7 @@ Para lograr esto, la aplicación captura las respuesta de códigos USSD después
 * Importar proyecto.
 
 ## Versión
-```2.0.4```
+```2.1.0```
 
 ## Estado
 ```Estable```
