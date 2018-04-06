@@ -39,7 +39,7 @@ public class Reciver extends BroadcastReceiver {
         final SharedPreferences sp = context.getSharedPreferences("ussdPreferences", context.MODE_PRIVATE);
         boolean chxStateCall = sp.getBoolean("cCall", true);
 
-        if (callState.equals(TelephonyManager.EXTRA_STATE_IDLE) && !LastCall(context).equals("0")) {
+        if (callState.equals(TelephonyManager.EXTRA_STATE_IDLE) && !LastCall(context).equals("0") && chxStateCall) {
 
             new CountDownTimer(5000, 1000) {
 
